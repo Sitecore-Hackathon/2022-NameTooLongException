@@ -1,0 +1,84 @@
+# Hackathon Submission Entry form
+
+> __Important__  
+> 
+> Rename this file to ENTRYFORM.md or face automatic __disqualification__ 
+> 
+> If any of the below information is not fully updated to match your entry the Hackathon submission will be immediately __disqualified__  
+> Feel free to delete any of the existing text, except for the headlines.
+
+You can find a very good reference to Github flavoured markdown reference in [this cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet). If you want something a bit more WYSIWYG for editing then could use [StackEdit](https://stackedit.io/app) which provides a more user friendly interface for generating the Markdown code. Those of you who are [VS Code fans](https://code.visualstudio.com/docs/languages/markdown#_markdown-preview) can edit/preview directly in that interface too.
+
+## Team name
+⟹ Write the name of your Hackathon team here
+
+## Category
+⟹ Write the name of the selected category
+
+## Description
+⟹ Write a clear description of your hackathon entry.  
+
+  - Module Purpose
+  - What problem was solved (if any)
+    - How does this module solve it
+
+_You can also paste a link here to a document within this repo containing the description._
+
+## Video link
+⟹ Provide a video highlighing your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
+
+⟹ [Replace this Video link](#video-link)
+
+
+
+## Pre-requisites
+
+⟹ Does your module rely on other Sitecore modules or frameworks?
+
+- List any dependencies
+- Or other modules that must be installed
+- Or services that must be enabled/configured
+
+## Installation instructions
+⟹ Write a short clear step-wise instruction on how to install your module.  
+
+> _A simple well-described installation process is required to win the Hackathon._  
+> Feel free to use any of the following tools/formats as part of the installation:
+> - Sitecore Package files
+> - Docker image builds
+> - Sitecore CLI
+> - msbuild
+> - npm / yarn
+> 
+> _Do not use_
+> - TDS
+> - Unicorn
+ 
+f. ex. 
+
+1. Start docker environment using Start-Boilerplate.ps1
+2. Open solution in Visual Studio and run build
+3. Use the Sitecore Installation wizard to install the [package](#link-to-package)
+4. ...
+5. profit
+
+### Configuration
+⟹ If there are any custom configuration that has to be set manually then remember to add all details here.
+
+## Usage instructions
+⟹ Provide documentation about your module, how do the users use your module, where are things located, what do the icons mean, are there any secret shortcuts etc.
+
+Include screenshots where necessary. You can add images to the `./images` folder and then link to them from your documentation:
+
+![Hackathon Logo](images/hackathon.png?raw=true "Hackathon Logo")
+
+You can embed images of different formats too:
+
+![Deal With It](images/deal-with-it.gif?raw=true "Deal With It")
+
+And you can embed external images too:
+
+![Random](https://placeimg.com/480/240/any "Random")
+
+## Comments
+If you'd like to make additional comments that is important for your module entry.

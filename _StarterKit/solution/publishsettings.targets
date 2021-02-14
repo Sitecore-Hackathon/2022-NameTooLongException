@@ -1,0 +1,10 @@
+<!--
+
+props condition IsLocalDocker
+
+DeployFolder => Platform
+DeployFolder condition SitecoreRoleType==xconnect..  => xconnect
+
+publishUrl etc...
+
+-->

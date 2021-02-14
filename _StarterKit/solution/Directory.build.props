@@ -1,0 +1,32 @@
+<!--
+***********************************************************************************************
+    Shared msbuild properties.
+
+        Enables autopublish on build and toggle deployment options.
+                                                                      [Anders Laub // Laub+Co]
+                                                                      
+***********************************************************************************************
+--><Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <!-- Load shared publishsettings.targets file to override any project specific -->
+    <CustomBeforeMicrosoftCommonTargets>$(MSBuildThisFileDirectory)publishsettings.targets</CustomBeforeMicrosoftCommonTargets>
+
+    <!-- Automatically deploy projects on build. 
+         
+         Note; dotnet core publish profile is not included in this starterkit. -->
+    <DeployOnBuild>True</DeployOnBuild>
+
+    <!-- Disable if other publish method is used. -->
+    <UseWebPublish>True</UseWebPublish>
+    <IsLocalDockerDeploy>True</IsLocalDockerDeploy>
+
+    <!-- Override this property in .csproj file to target other role types,
+            also see publishsettings.targets -->
+    <SitecoreRoleType>platform</SitecoreRoleType>
+
+  </PropertyGroup>
+
+
+
+</Project>
