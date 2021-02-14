@@ -44,8 +44,8 @@ if (Test-Path (Join-Path $PSScriptRoot "_Boilerplate.sln")) {
     Move-Item (Join-Path $PSScriptRoot "_Boilerplate.sln") (Join-Path $PSScriptRoot "$($solutionName).sln")
 }
 
-$dockerPreset = Select-DockerStarterKit -Title "^^^^^^^^^^^^^^^^^^^^ Docker environment 'starter-kit' ^^^^^^^^^^^^^^^^^^^^^^^^`n`n" -Message @"
-+-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+-+
+$dockerPreset = Select-DockerStarterKit -Title "^^^^^^^^^^^^^^^^^^^^^^ Docker environment 'starter-kit' ^^^^^^^^^^^^^^^^^^^^^^`n`n" -Message @"
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                         ->> DISCLAIMER <<- 
     We highly recommend that you do NOT attempt to use this setup 
         if you are completely new to running Sitecore on Docker. 
@@ -54,7 +54,7 @@ $dockerPreset = Select-DockerStarterKit -Title "^^^^^^^^^^^^^^^^^^^^ Docker envi
 
             The setup is optional to use and delivered as-is. 
     The community judges will not provide support for it during the Hackathon
-+-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+-+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 Select the Sitecore topology that match your Hackathon category. 
 
@@ -114,5 +114,17 @@ if (Confirm -Question "Would you like to adjust common environment settings?") {
 }
 
 Write-Host "Environment configuration done..." -ForegroundColor Green
+Write-Host "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" -ForegroundColor Magenta
+Write-Host "                       ->> IMPORTANT NEXT STEPS <<-" -ForegroundColor Cyan
+Write-Host @"
+    If you are more than one team member - then test, commit and push the environment.
+ 
+      Other team members then have to pull the latest and run `.\Start-Hackathon.ps1`.
+
+          This will generate locally trusted certificates and add hosts entries
+
+"@ -ForegroundColor Yellow
+Write-Host "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" -ForegroundColor Magenta
+
 Start-Docker -Url "cm.$($hostDomain)/sitecore" -Build
 Pop-Location
