@@ -1,7 +1,7 @@
 version: "2.4"
 
 services:
-  # A servercore image with both the netcore and netframework SDKs.
+ # A servercore image with both the netcore and netframework SDKs.
   # See Dockerfile for more details.
   dotnetsdk:
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-dotnetsdk:${VERSION:-latest}
@@ -28,14 +28,15 @@ services:
       - ./traefik:C:/etc/traefik
     depends_on:
       - cm
-
+  
   mssql:
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-mssql:${VERSION:-latest}
     build:
       context: ./build/mssql
       args:
         PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-mssql:${SITECORE_VERSION}
-        SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}        
+        SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}
+        SXA_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/sxa-xp1-assets:${SXA_VERSION}
     volumes:
       - ${LOCAL_DATA_PATH}\mssql:c:\data
     mem_limit: ${MEM_LIMIT_SQL:-2GB}
@@ -47,6 +48,7 @@ services:
       context: ./build/solr
       args:
         PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-solr:${SITECORE_VERSION}
+        SXA_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/sxa-xp1-assets:${SXA_VERSION}
     volumes:
       - ${LOCAL_DATA_PATH}\solr:c:\data
     mem_limit: ${MEM_LIMIT_SOLR:-1GB}
@@ -70,7 +72,8 @@ services:
       args:
         PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-cm:${SITECORE_VERSION}
         SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
-        SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}        
+        SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}
+        SXA_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/sxa-xp1-assets:${SXA_VERSION}
         TOOLS_IMAGE: ${TOOLS_IMAGE}
     depends_on:
       - solution

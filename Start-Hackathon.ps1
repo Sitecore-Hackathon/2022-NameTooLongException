@@ -88,6 +88,7 @@ Set-DockerComposeEnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value $AdminPassword
 
 if (Confirm -Question "Would you like to adjust common environment settings?") {
     Set-DockerComposeEnvFileVariable "SITECORE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore image version (press enter for 10.0.1-ltsc2019)" -DefaultValue "10.0.1-ltsc2019" -Required)
+    Set-DockerComposeEnvFileVariable "SPE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore Powershell Extensions version (press enter for 6.1.1-1809)" -DefaultValue "6.1.1-1809" -Required)
     Set-DockerComposeEnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value (Read-ValueFromHost -Question "Sitecore admin password (press enter for 'b')" -DefaultValue "b" -Required)
     Set-DockerComposeEnvFileVariable "REGISTRY" -Value (Read-ValueFromHost -Question "Local container registry (leave empty if none, must end with /)")
     Set-DockerComposeEnvFileVariable "ISOLATION" -Value (Read-ValueFromHost -Question "Container isolation mode (press enter for default)" -DefaultValue "default" -Required)
