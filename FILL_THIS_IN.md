@@ -56,7 +56,7 @@ _You can also paste a link here to a document within this repo containing the de
  
 f. ex. 
 
-1. Start docker environment using Start-Boilerplate.ps1
+1. Start docker environment using `.\Start-Hackathon.ps1`
 2. Open solution in Visual Studio and run build
 3. Use the Sitecore Installation wizard to install the [package](#link-to-package)
 4. ...
@@ -70,11 +70,11 @@ f. ex.
 
 Include screenshots where necessary. You can add images to the `./images` folder and then link to them from your documentation:
 
-![Hackathon Logo](images/hackathon.png?raw=true "Hackathon Logo")
+![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
 
 You can embed images of different formats too:
 
-![Deal With It](images/deal-with-it.gif?raw=true "Deal With It")
+![Deal With It](docs/images/deal-with-it.gif?raw=true "Deal With It")
 
 And you can embed external images too:
 

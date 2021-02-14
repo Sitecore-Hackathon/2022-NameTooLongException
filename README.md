@@ -1,4 +1,4 @@
-![Hackathon Logo](documentation/images/hackathon.png?raw=true "Hackathon Logo")
+![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
 
 # Submission Boilerplate
 
@@ -29,7 +29,7 @@ __Initial setup:__
 
 If setup fails or you need to re-run the setup wizard for other reasons then run `.\Remove-Starterkit.ps1` before running `.\Start-Hackathon.ps1` again.
 
-Running `.\Start-Hackathon.ps1` again will simply bring up the containers.
+After initial setup `.\Start-Hackathon.ps1` can be used to bring up the containers.
 
 To take the containers down again you can use `.\Stop-Hackathon.ps1` - this calls `docker-compose down` followed by `docker system prune`. This can be helpful if you experience issues with the Sitecore containers not starting or responding after computer has been turned off / put in Sleep-mode.
 
