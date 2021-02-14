@@ -65,9 +65,7 @@ $hostDomain = "$($solutionName.ToLower()).localhost"
 $hostDomain = Read-ValueFromHost -Question "Domain Hostname (press enter for $($hostDomain))" -DefaultValue $hostDomain -Required
 Initialize-HostNames $hostDomain
 
-do {
-    $licenseFolderPath = Read-ValueFromHost -Question "Path to the folder that contains your Sitecore license.xml (press enter for .\License\)" -DefaultValue ".\License\)" -Required
-} while (!(Test-Path $licenseFolderPath)) 
+$licenseFolderPath = Read-ValueFromHost -Question "Path to the folder that contains your Sitecore license.xml (press enter for .\License\)" -DefaultValue ".\License\)" -Required
 
 Push-Location ".\\docker"
 Set-DockerComposeEnvFileVariable "COMPOSE_PROJECT_NAME" -Value $solutionName.ToLower() 
