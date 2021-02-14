@@ -78,7 +78,7 @@ You can embed images of different formats too:
 
 And you can embed external images too:
 
-![Random](https://placeimg.com/480/240/any "Random")
+![Random](https://thiscatdoesnotexist.com/)
 
 ## Comments
 If you'd like to make additional comments that is important for your module entry.
