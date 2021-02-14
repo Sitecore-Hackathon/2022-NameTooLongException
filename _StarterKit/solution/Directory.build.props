@@ -1,0 +1,56 @@
+<!--
+***********************************************************************************************
+    Shared msbuild properties.
+
+        Enables autopublish on build and toggle deployment options.
+                                                                      [Anders Laub // Laub+Co]
+                                                                      
+***********************************************************************************************
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <!-- 
+            Loads shared pubxml file -->
+        <CustomBeforeMicrosoftCommonTargets>$(MSBuildThisFileDirectory)Docker.pubxml</CustomBeforeMicrosoftCommonTargets>
+
+        <!-- DeployOnBuild
+            Automatically deploy (publish) projects on build. . -->
+        <DeployOnBuild>True</DeployOnBuild>
+
+        <IsLocalDockerDeploy>True</IsLocalDockerDeploy>
+
+        <!-- SitecoreRoleType
+        $(SitecoreRoleType) defaults to 'platform'. 
+        
+        If you'd like to deploy a specific project to f. ex. the xconnect folder then just add the following in .csproj file:
+        <PropertyGroup>
+            ...
+            <SitecoreRoleType>xconnect</SitecoreRoleType>
+            ...
+        </PropertyGroup>
+        -->
+        <SitecoreRoleType>platform</SitecoreRoleType>
+
+    </PropertyGroup>
+
+    <!--
+    These props ensure there is no conflict between builds within your Rendering Host container ('dotnet watch'),
+    and local builds on the container host (e.g. in Visual Studio).
+    https://stackoverflow.com/a/60908066/201808
+  -->
+    <PropertyGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true'">
+        <DefaultItemExcludes>$(DefaultItemExcludes);$(MSBuildProjectDirectory)/obj/**/*</DefaultItemExcludes>
+        <DefaultItemExcludes>$(DefaultItemExcludes);$(MSBuildProjectDirectory)/bin/**/*</DefaultItemExcludes>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true' AND '$(DOTNET_RUNNING_IN_CONTAINER)' == 'true'">
+        <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)/obj/container/</BaseIntermediateOutputPath>
+        <BaseOutputPath>$(MSBuildProjectDirectory)/bin/container/</BaseOutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(UsingMicrosoftNETSdk)' == 'true' AND '$(DOTNET_RUNNING_IN_CONTAINER)' != 'true'">
+        <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)/obj/local/</BaseIntermediateOutputPath>
+        <BaseOutputPath>$(MSBuildProjectDirectory)/bin/local/</BaseOutputPath>
+    </PropertyGroup>
+
+
+</Project>
