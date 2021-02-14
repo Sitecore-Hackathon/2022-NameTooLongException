@@ -37,29 +37,29 @@ function Install-DockerStarterKit {
         $Name,
         [ValidateNotNullOrEmpty()]
         [string] 
-        $StarterKitRoot = ".\\_StarterKit",
+        $StarterKitRoot = ".\_StarterKit",
         [ValidateNotNullOrEmpty()]
         [string] 
-        $DestinationFolder = ".\\docker"
+        $DestinationFolder = ".\docker"
     )
 
-    $dockerPresetsPath = Join-Path $StarterKitRoot "\\docker\\$($Name)"
-    $solutionFiles = Join-Path $StarterKitRoot "\\solution\\*"
+    $dockerPresetsPath = Join-Path $StarterKitRoot "\docker\$($Name)\"
+    $solutionFiles = Join-Path $StarterKitRoot "\solution\*"
 
     if (!(Test-Path $dockerPresetsPath)) {
         throw "Docker preset not found on path $($dockerPresetsPath)"
     }
     
-    if ((Test-Path $solutionFiles) -and !(Test-Path ".\\Directory.build.props")) {
+    if ((Test-Path $solutionFiles) -and !(Test-Path ".\Directory.build.props")) {
         Write-Host "Copying msbuild props and targets files for docker deploys.." -ForegroundColor Green
-        Copy-Item $solutionFiles ".\\" -Recurse -Force
+        Copy-Item $solutionFiles ".\" -Recurse -Force
     }
     
     Write-Host "Creating docker folder.." -ForegroundColor Green
     Copy-Item $dockerPresetsPath $DestinationFolder -Recurse -Force
 
     Write-Host "Creating solution Dockerfile.." -ForegroundColor Green
-    Move-Item (Join-Path $DestinationFolder "Dockerfile") ".\\" -Force
+    Move-Item (Join-Path $DestinationFolder "Dockerfile") ".\" -Force
 }
 
 function Read-ValueFromHost {    
@@ -119,7 +119,7 @@ function Get-EnvValueByKey {
         $FilePath = ".env",
         [ValidateNotNullOrEmpty()]
         [string] 
-        $DockerRoot = ".\\docker"
+        $DockerRoot = ".\docker"
     )
     if (!(Test-Path $FilePath)) {
         $FilePath = Join-Path $DockerRoot $FilePath
@@ -158,11 +158,11 @@ function Start-Docker {
         $Url,
         [ValidateNotNullOrEmpty()]
         [string] 
-        $DockerRoot = ".\\docker",
+        $DockerRoot = ".\docker",
         [Switch]
         $Build
     )
-    if (!(Test-Path ".\\docker-compose.yml")) {
+    if (!(Test-Path ".\docker-compose.yml")) {
         Push-Location $DockerRoot
     }
 
@@ -179,14 +179,14 @@ function Stop-Docker {
     param(
         [ValidateNotNullOrEmpty()]
         [string] 
-        $DockerRoot = ".\\docker",
+        $DockerRoot = ".\docker",
         [Switch]$TakeDown,
         [Switch]$PruneSystem
     )
-    if (!(Test-Path ".\\docker-compose.yml")) {
+    if (!(Test-Path ".\docker-compose.yml")) {
         Push-Location $DockerRoot
     }
-    if (Test-Path ".\\docker-compose.yml") {
+    if (Test-Path ".\docker-compose.yml") {
         if ($TakeDown) {
             docker-compose down
         }
@@ -233,8 +233,8 @@ function Initialize-HostNames {
     Add-HostsEntry "id.$($HostDomain)"
     Add-HostsEntry "www.$($HostDomain)"
     
-    if (!(Test-Path ".\\docker\\traefik\\certs\\cert.pem")) {
-        & ".\\_StarterKit\\tools\\\\mkcert.ps1" -FullHostName $hostDomain
+    if (!(Test-Path ".\docker\traefik\certs\cert.pem")) {
+        & ".\_StarterKit\tools\\mkcert.ps1" -FullHostName $hostDomain
     }
 }
 

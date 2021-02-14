@@ -1,13 +1,13 @@
 #Requires -RunAsAdministrator
 
-Import-Module -Name (Join-Path $PSScriptRoot "_StarterKit\\tools\\_StarterKitFunctions") -Force
+Import-Module -Name (Join-Path $PSScriptRoot "_StarterKit\tools\_StarterKitFunctions") -Force
 
 Show-HackLogo
 
-if (Test-IsEnvInitialized -FilePath ".\\docker\\.env" ) {
+if (Test-IsEnvInitialized -FilePath ".\docker\.env" ) {
     Write-Host "Docker environment is present, starting docker.." -ForegroundColor Green
 
-    if (!(Test-Path ".\\docker\\traefik\\certs\\cert.pem")) {
+    if (!(Test-Path ".\docker\traefik\certs\cert.pem")) {
         Write-Host "TLS certificate for Traefik not found, generating and adding hosts file entries" -ForegroundColor Green
         Install-SitecoreDockerTools
         $hostDomain = Get-EnvValueByKey "HOST_DOMAIN"
@@ -21,14 +21,17 @@ if (Test-IsEnvInitialized -FilePath ".\\docker\\.env" ) {
     exit 0
 }
 
-if ( !(Test-Path ".\\_StarterKit\\docker")) {
-    Write-Host "Boilerplate docker setups not found - you're on your own.." -ForegroundColor Green
+if ( !(Test-Path ".\_StarterKit\docker")) {
+    Write-Host "Starter-kit docker setups not found - you're on your own.." -ForegroundColor Green
     exit 0
 }
 
 if (!(Test-Path (Join-Path $PSScriptRoot "_Boilerplate.sln"))) {
-    if (!(Confirm "Solution file has been renamed but no docker-compose environmnent found. `n`nWould you like to install one?")) {
+    if (!(Confirm "Solution file has already been renamed but no initialized docker environmnent found. `n`nWould you like to install one?")) {
         exit 0
+    }
+    if (Test-Path (Join-Path $PSScriptRoot "docker")) {
+        Remove-Item (Join-Path $PSScriptRoot "docker") -Force -Recurse
     }
 }
 
@@ -54,11 +57,14 @@ Select the Sitecore topology that match your Hackathon category.
 Choose 'None' if you'd prefer to use your own setup.`n
 "@ 
 
-if ($dockerPreset -eq "none") {
+Write-Host "$($dockerPreset) selected.." -ForegroundColor Magenta
+
+if ($dockerPreset -eq "none" -or $dockerPreset -eq "") {
+    Write-Host "Okay, No Docker preset will be installed.." -ForegroundColor Yellow
     exit 0
 }
 
-Install-DockerStarterKit $dockerPreset
+Install-DockerStarterKit -Name $dockerPreset
 Install-SitecoreDockerTools
 
 $hostDomain = "$($solutionName.ToLower()).localhost"
@@ -67,7 +73,7 @@ Initialize-HostNames $hostDomain
 
 $licenseFolderPath = Read-ValueFromHost -Question "Path to the folder that contains your Sitecore license.xml (press enter for .\License\)" -DefaultValue ".\License\)" -Required
 
-Push-Location ".\\docker"
+Push-Location ".\docker"
 Set-DockerComposeEnvFileVariable "COMPOSE_PROJECT_NAME" -Value $solutionName.ToLower() 
 Set-DockerComposeEnvFileVariable "HOST_LICENSE_FOLDER" -Value $licenseFolderPath
 Set-DockerComposeEnvFileVariable "HOST_DOMAIN"  -Value $hostDomain
