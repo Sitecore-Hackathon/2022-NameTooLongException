@@ -7,8 +7,10 @@ ARG SPE_IMAGE
 
 FROM ${SOLUTION_IMAGE} as solution
 FROM ${TOOLS_IMAGE} as tools
-FROM ${PARENT_IMAGE}
 FROM ${SPE_IMAGE} as spe
+
+FROM ${PARENT_IMAGE}
+
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
@@ -18,6 +20,7 @@ COPY --from=tools C:\tools C:\tools
 
 
 WORKDIR C:\inetpub\wwwroot
+
 
 # Add SPE module
 COPY --from=spe \module\cm\content .\

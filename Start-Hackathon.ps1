@@ -16,6 +16,8 @@ if (Test-IsEnvInitialized -FilePath ".\docker\.env" ) {
             throw "Required variable 'HOST_DOMAIN' not set in .env file."
         }
         Initialize-HostNames $hostDomain
+        Start-Docker -Url "$($hostDomain)/sitecore" -Build
+        exit 0
     }
     Start-Docker -Url "$(Get-EnvValueByKey "CM_HOST")/sitecore"
     exit 0
@@ -71,11 +73,16 @@ $hostDomain = "$($solutionName.ToLower()).localhost"
 $hostDomain = Read-ValueFromHost -Question "Domain Hostname (press enter for $($hostDomain))" -DefaultValue $hostDomain -Required
 Initialize-HostNames $hostDomain
 
-$licenseFolderPath = Read-ValueFromHost -Question "Path to the folder that contains your Sitecore license.xml (press enter for .\License\)" -DefaultValue ".\License\)" -Required
+do {
+    $licenseFolderPath = Read-ValueFromHost -Question "Path to a folder that contains your Sitecore license.xml file (press enter for .\License\ - must contain a file named license.xml file)" -DefaultValue ".\License\" -Required
+} while (!(Test-Path (Join-Path $licenseFolderPath "license.xml")))
+
+Copy-Item (Join-Path $licenseFolderPath "license.xml") ".\docker\license\"
+Write-Host "Copied license.xml to .\docker\license\" -ForegroundColor Magenta
 
 Push-Location ".\docker"
 Set-DockerComposeEnvFileVariable "COMPOSE_PROJECT_NAME" -Value $solutionName.ToLower() 
-Set-DockerComposeEnvFileVariable "HOST_LICENSE_FOLDER" -Value $licenseFolderPath
+Set-DockerComposeEnvFileVariable "HOST_LICENSE_FOLDER" -Value ".\license"
 Set-DockerComposeEnvFileVariable "HOST_DOMAIN"  -Value $hostDomain
 Set-DockerComposeEnvFileVariable "CM_HOST" -Value "cm.$($hostDomain)"
 Set-DockerComposeEnvFileVariable "ID_HOST" -Value "id.$($hostDomain)"

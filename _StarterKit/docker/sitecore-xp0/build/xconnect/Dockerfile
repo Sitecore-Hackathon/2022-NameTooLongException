@@ -5,8 +5,9 @@ ARG TOOLS_IMAGE
 ARG SOLUTION_IMAGE
 
 FROM ${TOOLS_IMAGE} as tools
-FROM ${PARENT_IMAGE}
 FROM ${SOLUTION_IMAGE} as solution
+
+FROM ${PARENT_IMAGE}
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 

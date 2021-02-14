@@ -76,6 +76,8 @@ services:
         TOOLS_IMAGE: ${TOOLS_IMAGE}
     environment: 
       SITECORE_LICENSE_LOCATION: C:\license
+    depends_on:
+      - solution      
     volumes:
       - .\data\xconnect:C:\deploy
       - ${LICENSE_PATH}:C:\license
