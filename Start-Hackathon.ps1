@@ -48,7 +48,9 @@ $dockerPreset = Select-DockerStarterKit -Title "^^^^^^^^^^^^^^^^^^^^ Docker envi
 +-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+-+
                         ->> DISCLAIMER <<- 
     We highly recommend that you do NOT attempt to use this setup 
-        if you are unfamiliar with running Sitecore on Docker. 
+        if you are completely new to running Sitecore on Docker. 
+
+         The Hackathon is not the right time to learn Docker.
 
             The setup is optional to use and delivered as-is. 
     The community judges will not provide support for it during the Hackathon
