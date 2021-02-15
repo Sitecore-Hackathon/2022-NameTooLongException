@@ -21,17 +21,18 @@ This year we have decided to include a starter-kit with a basic solution setup i
 > Prerequisites for using the setup is the same as fpr [the Sitecore Getting Started template](https://doc.sitecore.com/developers/100/developer-tools/en/walkthrough--using-the-getting-started-template.html). It is recommended to try this template before using the Hackathon "Starter-kit".
 
 __Initial setup:__
+   > If you have IIS running then stop it by running `iisreset /stop` or open 'IIS manager' > _right click computername_ > 'Stop'
 1. Open a powershell terminal as Administrator
 2. Navigate to this folder and run `.\Start-Hackathon.ps1`
 3. Follow on-screen instructions
-4. Test, commit and push so any other team members can pull the generated setup
-5. Other team members then have to pull the setup and run `.\Start-Hackathon.ps1` to generate locally trusted certificates and add hosts entries
+4. Test, git commit and push so other team members can pull the generated setup
+5. Other team members should then git pull and run `.\Start-Hackathon.ps1` to generate locally trusted certificates and add hosts entries
 
-If setup fails or you need to re-run the setup wizard for other reasons then run `.\Remove-Starterkit.ps1` before running `.\Start-Hackathon.ps1` again.
+If setup fails or you need to re-run the setup wizard for other reasons then run `.\Remove-Starterkit.ps1` to reset and run `.\Start-Hackathon.ps1` again.
 
-After initial setup `.\Start-Hackathon.ps1` can be used to bring up the containers.
+After the initial setup `.\Start-Hackathon.ps1` can be used to bring up the containers - similar to manually running `.\docker-compose up -d` from the `.\docker` folder.
 
-To take the containers down again you can use `.\Stop-Hackathon.ps1` - this calls `docker-compose down` followed by `docker system prune`. This can be helpful if you experience issues with the Sitecore containers not starting or responding after computer has been turned off / put in Sleep-mode.
+To take the containers down again you can use `.\Stop-Hackathon.ps1` - this calls `docker-compose down` followed by `docker system prune`. This can sometime help if you experience issues with the Sitecore containers not starting up or do not respond after computer has been turned off or put in Sleep-mode.
 
 If the certificates are invalid then make sure that the mkcert self-signed root certificate is in `Local Machine > Trusted root certificates.`
 

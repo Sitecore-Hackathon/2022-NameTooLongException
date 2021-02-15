@@ -39,9 +39,11 @@ if (!(Test-Path (Join-Path $PSScriptRoot "_Boilerplate.sln"))) {
 
 $solutionName = Read-ValueFromHost -Question "Please enter a valid solution name (a-z|A-Z - min. 3 char)" -ValidationRegEx "^([a-z]|[A-Z]){3}([a-z]|[A-Z])*$" -Required
 
-if (Test-Path (Join-Path $PSScriptRoot "_Boilerplate.sln")) {
-    Write-Host "Renaming solution file to: $($solutionName).sln" -ForegroundColor Green
-    Move-Item (Join-Path $PSScriptRoot "_Boilerplate.sln") (Join-Path $PSScriptRoot "$($solutionName).sln")
+if (!Confirm -Question "Would you like to install a Docker environment preset?" -DefaultYes) 
+{
+    Write-Host "Okay, No Docker preset will be installed.." -ForegroundColor Yellow
+    Rename-SolutionFile $solutionName
+    exit 0
 }
 
 $dockerPreset = Select-DockerStarterKit -Title "^^^^^^^^^^^^^^^^^^^^^^ Docker environment 'starter-kit' ^^^^^^^^^^^^^^^^^^^^^^`n`n" -Message @"
@@ -55,20 +57,14 @@ $dockerPreset = Select-DockerStarterKit -Title "^^^^^^^^^^^^^^^^^^^^^^ Docker en
             The setup is optional to use and delivered as-is. 
     The community judges will not provide support for it during the Hackathon
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
-Select the Sitecore topology that match your Hackathon category. 
-
-Choose 'None' if you'd prefer to use your own setup.`n
 "@ 
 
 Write-Host "$($dockerPreset) selected.." -ForegroundColor Magenta
 
-if ($dockerPreset -eq "none" -or $dockerPreset -eq "") {
-    Write-Host "Okay, No Docker preset will be installed.." -ForegroundColor Yellow
-    exit 0
-}
+Install-DockerStarterKit -Name $dockerPreset -IncludeSolutionFiles (Confirm -Question "Would you like to include a basic solution setup?" -DefaultYes)
 
-Install-DockerStarterKit -Name $dockerPreset
+
+Rename-SolutionFile $solutionName
 Install-SitecoreDockerTools
 
 $hostDomain = "$($solutionName.ToLower()).localhost"
@@ -113,6 +109,10 @@ if (Confirm -Question "Would you like to adjust common environment settings?") {
     }
 }
 
+Start-Docker -Url "cm.$($hostDomain)/sitecore" -Build
+
+Pop-Location
+
 Write-Host "Environment configuration done..." -ForegroundColor Green
 Write-Host "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" -ForegroundColor Magenta
 Write-Host "                       ->> IMPORTANT NEXT STEPS <<-" -ForegroundColor Cyan
@@ -125,6 +125,3 @@ Write-Host @"
 
 "@ -ForegroundColor Yellow
 Write-Host "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" -ForegroundColor Magenta
-
-Start-Docker -Url "cm.$($hostDomain)/sitecore" -Build
-Pop-Location

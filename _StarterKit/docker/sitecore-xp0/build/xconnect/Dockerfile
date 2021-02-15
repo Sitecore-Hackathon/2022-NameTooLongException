@@ -12,5 +12,3 @@ FROM ${PARENT_IMAGE}
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 COPY --from=tools \tools\ \tools\
-
-# Copy solution xconnect files

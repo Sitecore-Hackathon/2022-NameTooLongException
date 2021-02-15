@@ -22,9 +22,9 @@ if (Test-Path .\docker)
 
 Get-ChildItem directory.build.* | ForEach-Object { Remove-Item $_ -Force }
 
-if (Test-Path .\publishsettings.targets) 
+if (Test-Path .\Docker.pubxml) 
 {
-    Remove-Item .\publishsettings.targets -Force 
+    Remove-Item .\Docker.pubxml -Force 
 }
 
 if (Test-Path .\Dockerfile) 
