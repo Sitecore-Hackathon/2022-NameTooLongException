@@ -47,13 +47,14 @@ if (!(Test-Path ".\*.sln") -and !(Confirm -Question "Would you like to install a
     exit 0
 }
 
+$esc = [char]27
 $dockerPreset = Select-DockerStarterKit -Disclaimer @"
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                        ->> DISCLAIMER <<- 
+                   ->>  $esc[4mDISCLAIMER$esc[24m <<- 
     We highly recommend that you do NOT attempt to use this setup 
         if you are completely new to running Sitecore on Docker. 
 
-         The Hackathon is not the right time to learn Docker.
+        $esc[1$esc[4mThe Hackathon is not the right time to learn Docker.$esc[24m$esc[22m
 
            The setup is optional to use and delivered as-is. 
     The community judges will not provide support for it during the Hackathon
