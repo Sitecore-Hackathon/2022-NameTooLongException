@@ -1,5 +1,7 @@
 using namespace System.Management.Automation.Host
 
+Set-StrictMode -Version Latest
+
 function Select-DockerStarterKit {
     param(
         [Parameter(Mandatory = $true)]
@@ -10,6 +12,7 @@ function Select-DockerStarterKit {
     Write-Host $Disclaimer -ForegroundColor Cyan
     $experienceType = "xm"
     
+    Write-PrePrompt
     if (($host.ui.PromptForChoice("Select type of eXperience", @"
 Would you like a setup for Sitecore eXperience Manager (xm) or for Sitecore eXperience Platform (xp0)?
 --
@@ -29,10 +32,9 @@ Please only select XP if you use features not available in XM.
         [ChoiceDescription]::new("&JavaScript Services (jss)"), 
         [ChoiceDescription]::new("Sitecore eXperience &Accelerator (sxa)")
     )
-    $result = $host.ui.PromptForChoice("", @"
-Select the variant that match your Hackathon category.`n
-"@, $options, 0)
-    Write-Host ""
+    
+    Write-PrePrompt
+    $result = $host.ui.PromptForChoice("", "Select the variant that match your Hackathon category.", $options, 0)
     switch ($result) {
         0 { "sitecore-$($experienceType)" }
         1 { "sitecore-$($experienceType)-rendering" }
@@ -76,7 +78,7 @@ function Install-DockerStarterKit {
         if (Test-Path (Join-Path $foldersRoot $folder))
         {
             $path = "$((Join-Path $foldersRoot $folder))\*"
-            Write-Host "Copying $($path) to $DestinationFolder"
+            Write-Host "Copying $($path) to $DestinationFolder" -ForegroundColor Magenta
             Copy-Item $path $DestinationFolder -Recurse -Force
         }
         $folder = "$($folder)-"
@@ -98,13 +100,18 @@ function Read-ValueFromHost {
         $ValidationRegEx,
         [switch]$Required
     )
+    Write-Host ""
     do {
+        Write-PrePrompt
         $value = Read-Host $Question
         if ($value -eq "" -band $DefaultValue -ne "") { $value = $DefaultValue }
         $invalid = ($Required -and $value -eq "") -or ($ValidationRegEx -ne "" -and $value -notmatch $ValidationRegEx)
     } while ($invalid -bor $value -eq "q")
-    Write-Host ""
     $value
+}
+
+function Write-PrePrompt {
+    Write-Host "> " -NoNewline -ForegroundColor Yellow
 }
 
 function Confirm {    
@@ -122,9 +129,9 @@ function Confirm {
     )
     $defaultOption = 1;
     if ($DefaultYes) { $defaultOption = 0 }
-
-    $result = $host.ui.PromptForChoice("", $Question, $options, $defaultOption)
     Write-Host ""
+    Write-PrePrompt
+    $result = $host.ui.PromptForChoice("", $Question, $options, $defaultOption)
     switch ($result) {
         0 { return $true }
         1 { return $false }
@@ -172,7 +179,6 @@ function Remove-EnvHostsEntry {
     }
 }
 
-
 function Start-Docker {
     param(
         [Parameter(Mandatory = $true)]
@@ -195,8 +201,9 @@ function Start-Docker {
     docker-compose up -d
     Pop-Location
 
-    Write-Host "`n`n.. if all went well then the last thing left is to do a little dance for 10 seconds to make sure Traefik is ready..`n`n`n" -ForegroundColor DarkYellow
-    Write-PauseDanceAnim    
+    Write-Host "`n`n..now the last thing left to do is a little dance for about 15 seconds to make sure Traefik is ready..`n`n`n" -ForegroundColor DarkYellow
+    Write-Host "`nif something failed along the way, press [ctrl-c] to stop the dance and try again. Use '.\Remove-Starterkit' to clean up if needed..`n`n`n" -ForegroundColor Gray
+    Write-PauseDanceAnim -PauseInSeconds 15    
     Write-Host "`n`n`ndance done.. opening https://$($url)`n`n" -ForegroundColor DarkGray
     Start-Process "https://$url"
 }

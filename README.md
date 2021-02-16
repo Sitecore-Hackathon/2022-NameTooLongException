@@ -10,15 +10,15 @@ The purpose of this repository is to hand-in your Hackathon submissions.
 
 The documentation for this years Hackathon must be provided as a readme in Markdown format as part of your submission.
 
-Read and follow the instructions found in this file ⟹ [FILL_THIS_IN.md](FILL_THIS_IN.md) ⟸
+Follow the instructions found in this file ⟹ [FILL_THIS_IN.md](FILL_THIS_IN.md) ⟸
 
 ## Docker Hackathon "Starter-kit"
+> Prerequisites for using the starter-kit are the same as for [the Sitecore Getting Started template](https://doc.sitecore.com/developers/100/developer-tools/en/walkthrough--using-the-getting-started-template.html). It is recommended to try have tried this template succesfully before using the Hackathon "Starter-kit".
 
 This year we have decided to include a starter-kit with a basic solution setup including preconfigured docker-compose environments that follow the recommended approaches from Sitecore.
 
 > It is not required to use the starter-kit or Docker as long as all entry submission requirements are met.  
 > _Do not spend time on the starter-kit if you do not have any previous experience with running Sitecore on Docker._  
-> Prerequisites for using the setup is the same as fpr [the Sitecore Getting Started template](https://doc.sitecore.com/developers/100/developer-tools/en/walkthrough--using-the-getting-started-template.html). It is recommended to try this template before using the Hackathon "Starter-kit".
 
 __Initial setup:__
    > If you have IIS running then stop it by running `iisreset /stop` or open 'IIS manager' > _right click computername_ > 'Stop'
@@ -42,9 +42,9 @@ _A small deviation from Sitecore Docker examples; docker-compose files has been 
 
 ## Entry Submission Requirements 
 
-All teams are required to submit the following as part of their entry submission on or before the end of the Hackathon on **Saturday March 6th 2021 at 8PM EST**. The modules should be based on [Sitecore Experience Platform 10.0 Update-1](https://dev.sitecore.net/Downloads/Sitecore_Experience_Platform/100/Sitecore_Experience_Platform_100_Update1.aspx).
-
 _⟹ [FILL_THIS_IN.md](FILL_THIS_IN.md). ⟸_
+
+All teams are required to submit the following as part of their entry submission on or before the end of the Hackathon on **Saturday March 6th 2021 at 8PM EST**. The modules should be based on [Sitecore Experience Platform 10.0 Update-1](https://dev.sitecore.net/Downloads/Sitecore_Experience_Platform/100/Sitecore_Experience_Platform_100_Update1.aspx).
 
 **Failure to meet any of the requirements will result in automatic disqualification.** 
 

@@ -37,7 +37,7 @@ if ((Test-Path ".\*.sln")) {
     }
 }
 
-$solutionName = Read-ValueFromHost -Question "Please enter a valid solution name (a-z|A-Z - min. 3 char)" -ValidationRegEx "^([a-z]|[A-Z]){3}([a-z]|[A-Z])*$" -Required
+$solutionName = Read-ValueFromHost -Question "Please enter a valid solution name`n(Capital first letter, letters and numbers only, min. 3 char)" -ValidationRegEx "^[A-Z]([a-z]|[A-Z]|[0-9]){2}([a-z]|[A-Z]|[0-9])*$" -Required
 
 if (!(Test-Path ".\*.sln") -and !(Confirm -Question "Would you like to install a Docker environment preset?" -DefaultYes)) 
 {
@@ -73,7 +73,7 @@ $hostDomain = Read-ValueFromHost -Question "Domain Hostname (press enter for $($
 Initialize-HostNames $hostDomain
 
 do {
-    $licenseFolderPath = Read-ValueFromHost -Question "Path to a folder that contains your Sitecore license.xml file (press enter for .\License\ - must contain a file named license.xml file)" -DefaultValue ".\License\" -Required
+    $licenseFolderPath = Read-ValueFromHost -Question "Path to a folder that contains your Sitecore license.xml file `n- must contain a file named license.xml file (press enter for .\License\)" -DefaultValue ".\License\" -Required
 } while (!(Test-Path (Join-Path $licenseFolderPath "license.xml")))
 
 Copy-Item (Join-Path $licenseFolderPath "license.xml") ".\docker\license\"
@@ -114,7 +114,6 @@ Start-Docker -Url "cm.$($hostDomain)/sitecore" -Build
 
 Pop-Location
 
-Write-Host "Environment configuration done..." -ForegroundColor Green
 Write-Host "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" -ForegroundColor Magenta
 Write-Host "                       ->> IMPORTANT NEXT STEPS <<-" -ForegroundColor Cyan
 Write-Host @"

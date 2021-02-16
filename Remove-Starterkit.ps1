@@ -4,12 +4,12 @@ Import-Module -Name (Join-Path $PSScriptRoot "_StarterKit\\tools\\_StarterKitFun
 
 Show-HackLogo
 
-if (!(Confirm -Question "This will delete .\docker\**\*, .\Dockerfile and msbuild files from the starterkit.`n`nAre you completely sure you want to do that?")) {
+if (!(Confirm -Question "This will delete .\docker\**\*, .\Dockerfile and msbuild files from the starterkit.`n`nAre you really completely sure you want to do that?")) {
     Write-Host "Okay, nevermind then.." -ForegroundColor Cyan
     exit 0
 }
 
-Write-Host "Okay, deleting all the stuff.." -ForegroundColor Red
+Write-Host "Okay, no way back - deleting all the stuff.." -ForegroundColor Red
 
 if (Test-Path .\docker) 
 {
@@ -35,6 +35,11 @@ if (Test-Path .\HelixTemplates)
 if (Test-Path .\Dockerfile) 
 {
     Remove-Item .\Dockerfile -Force 
+}
+
+if ((Test-Path .\*.sln) -and (Confirm -Question "Would you also like to delete the .sln file?")) 
+{
+    Remove-Item .\*.sln -Force 
 }
 
 Write-Host "Job's done.." -ForegroundColor Green
