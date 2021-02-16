@@ -14,8 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution", "_Solution", "{
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		Directory.build.props = Directory.build.props
-		Directory.build.targets = Directory.build.targets
 		nuget.config = nuget.config
 		README.md = README.md
 	EndProjectSection

@@ -28,8 +28,8 @@ if ( !(Test-Path ".\_StarterKit\docker")) {
     exit 0
 }
 
-if (!(Test-Path (Join-Path $PSScriptRoot "_Boilerplate.sln"))) {
-    if (!(Confirm "Solution file has already been renamed but no initialized docker environmnent found. `n`nWould you like to install one?")) {
+if ((Test-Path ".\*.sln")) {
+    if (!(Confirm "A solution file already exist but no initialized docker environmnent was found.`n`nWould you like to install a Docker environment preset??")) {
         exit 0
     }
     if (Test-Path (Join-Path $PSScriptRoot "docker")) {
@@ -39,9 +39,10 @@ if (!(Test-Path (Join-Path $PSScriptRoot "_Boilerplate.sln"))) {
 
 $solutionName = Read-ValueFromHost -Question "Please enter a valid solution name (a-z|A-Z - min. 3 char)" -ValidationRegEx "^([a-z]|[A-Z]){3}([a-z]|[A-Z])*$" -Required
 
-if (!(Confirm -Question "Would you like to install a Docker environment preset?" -DefaultYes)) 
+if (!(Test-Path ".\*.sln") -and !(Confirm -Question "Would you like to install a Docker environment preset?" -DefaultYes)) 
 {
     Write-Host "Okay, No Docker preset will be installed.." -ForegroundColor Yellow
+    Copy-Item ".\_StarterKit\_Boilerplate.sln" ".\" -Force
     Rename-SolutionFile $solutionName
     exit 0
 }

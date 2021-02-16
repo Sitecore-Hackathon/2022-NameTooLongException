@@ -275,7 +275,7 @@ function Rename-SolutionFile {
         $FileToRename = ".\_Boilerplate.sln"
     )
     if ((Test-Path $FileToRename) -and !(Test-Path ".\$($SolutionName).sln")) {
-        Write-Host "Renaming solution file to: $($SolutionName).sln" -ForegroundColor Green
+        Write-Host "Creating solution file: $($SolutionName).sln" -ForegroundColor Green
         Move-Item $FileToRename ".\$($SolutionName).sln"
     }
 }
