@@ -16,7 +16,7 @@ Read and follow the instructions found in this file ⟹ [FILL_THIS_IN.md](FILL_T
 
 This year we have decided to include a starter-kit with a basic solution setup including preconfigured docker-compose environments that follow the recommended approaches from Sitecore.
 
-> It is not required to use the starter-kit as long as other entry submission requirements are met.  
+> It is not required to use the starter-kit or Docker as long as other entry submission requirements are met.  
 > _Do not spend time on the starter-kit if you do not have any previous experience with running Sitecore on Docker._  
 > Prerequisites for using the setup is the same as fpr [the Sitecore Getting Started template](https://doc.sitecore.com/developers/100/developer-tools/en/walkthrough--using-the-getting-started-template.html). It is recommended to try this template before using the Hackathon "Starter-kit".
 
