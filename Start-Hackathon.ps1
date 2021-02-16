@@ -54,7 +54,11 @@ $dockerPreset = Select-DockerStarterKit -Disclaimer @"
 
          The Hackathon is not the right time to learn Docker.
 
+<<<<<<< HEAD
            The setup is optional to use and delivered as-is. 
+=======
+            The setup is optional to use and delivered as-is. 
+>>>>>>> 56efb301b323a275e508f7540e684b9304ce4c9e
     The community judges will not provide support for it during the Hackathon
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 "@ 
