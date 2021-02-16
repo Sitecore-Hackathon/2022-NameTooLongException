@@ -9,7 +9,7 @@ function Select-DockerStarterKit {
         [string] 
         $Disclaimer
     )
-    Write-Host $Disclaimer -ForegroundColor Cyan
+    Write-Host $Disclaimer -ForegroundColor Cyan -BackgroundColor Black
 
     $experienceType = "xm"
     

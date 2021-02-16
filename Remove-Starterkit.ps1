@@ -13,7 +13,7 @@ Write-Host "Okay, no way back - deleting all the stuff.." -ForegroundColor Red
 
 if (Test-Path .\docker) 
 {
-    Stop-Docker -DockerRoot ".\\docker"
+    Stop-Docker -DockerRoot ".\\docker" -TakeDown -PruneSystem
     Remove-EnvHostsEntry "CM_HOST"
     Remove-EnvHostsEntry "ID_HOST"
     Remove-EnvHostsEntry "RENDERING_HOST"

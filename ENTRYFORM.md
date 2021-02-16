@@ -2,10 +2,9 @@
 
 > __Important__  
 > 
-> Rename this file to ENTRYFORM.md or face automatic __disqualification__ 
-> 
-> If any of the below information is not fully updated to match your entry the Hackathon submission will be immediately __disqualified__  
-> Feel free to delete any of the existing text, except for the headlines.
+> Copy and paste the content of this file into README.md or face automatic __disqualification__ 
+> Headlines and subheadlines shall be retained.  
+> Fill in text in each section as instructed and then delete the existing text, including this blockquote.
 
 You can find a very good reference to Github flavoured markdown reference in [this cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet). If you want something a bit more WYSIWYG for editing then could use [StackEdit](https://stackedit.io/app) which provides a more user friendly interface for generating the Markdown code. Those of you who are [VS Code fans](https://code.visualstudio.com/docs/languages/markdown#_markdown-preview) can edit/preview directly in that interface too.
 
@@ -22,7 +21,7 @@ You can find a very good reference to Github flavoured markdown reference in [th
   - What problem was solved (if any)
     - How does this module solve it
 
-_You can also paste a link here to a document within this repo containing the description._
+_You can alternately paste a [link here](#docs) to a document within this repo containing the description._
 
 ## Video link
 ⟹ Provide a video highlighing your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_

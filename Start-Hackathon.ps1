@@ -117,7 +117,7 @@ Start-Docker -Url "cm.$($hostDomain)/sitecore" -Build
 Pop-Location
 
 Write-Host "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+" -ForegroundColor Magenta
-Write-Host "                       ->> IMPORTANT NEXT STEPS <<-" -ForegroundColor Cyan
+Write-Host "                       ->> $esc[4mIMPORTANT NEXT STEPS$esc[24m <<-" -ForegroundColor Cyan
 Write-Host @"
     If you are more than one team member - then test, commit and push the environment.
  
