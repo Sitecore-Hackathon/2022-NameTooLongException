@@ -27,6 +27,11 @@ if (Test-Path .\Docker.pubxml)
     Remove-Item .\Docker.pubxml -Force 
 }
 
+if (Test-Path .\HelixTemplates) 
+{
+    Remove-Item .\HelixTemplates -Force -Recurse
+}
+
 if (Test-Path .\Dockerfile) 
 {
     Remove-Item .\Dockerfile -Force 
