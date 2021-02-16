@@ -30,11 +30,11 @@ services:
       - cm
 
   mssql:
-    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xm0-mssql:${VERSION:-latest}
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xm1-mssql:${VERSION:-latest}
     build:
       context: ./build/mssql
       args:
-        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm0-mssql:${SITECORE_VERSION}
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm1-mssql:${SITECORE_VERSION}
         SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}
         SXA_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/sxa-xm1-assets:${SXA_VERSION}                 
     volumes:
@@ -43,11 +43,11 @@ services:
     restart: always
 
   solr:
-    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xm0-solr:${VERSION:-latest}
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xm1-solr:${VERSION:-latest}
     build:
       context: ./build/solr
       args:
-        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm0-solr:${SITECORE_VERSION}
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm1-solr:${SITECORE_VERSION}
         SXA_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/sxa-xm1-assets:${SXA_VERSION}        
     volumes:
       - ${LOCAL_DATA_PATH}\solr:c:\data
@@ -66,11 +66,11 @@ services:
       SITECORE_LICENSE_LOCATION: c:\license\license.xml
 
   cm:
-    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xm0-cm:${VERSION:-latest}
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xm1-cm:${VERSION:-latest}
     build:
       context: ./build/cm
       args:
-        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm0-cm:${SITECORE_VERSION}
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm1-cm:${SITECORE_VERSION}
         SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
         SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}  
         SXA_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/sxa-xm1-assets:${SXA_VERSION}      

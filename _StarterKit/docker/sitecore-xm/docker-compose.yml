@@ -81,7 +81,9 @@ services:
     depends_on:
       id:
         condition: service_started
-      xconnect:
+      mssql:
+        condition: service_started
+      solr:
         condition: service_started
     environment:
       Sitecore_AppSettings_role:define: Standalone    

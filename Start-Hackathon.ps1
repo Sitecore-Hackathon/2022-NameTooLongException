@@ -39,14 +39,14 @@ if (!(Test-Path (Join-Path $PSScriptRoot "_Boilerplate.sln"))) {
 
 $solutionName = Read-ValueFromHost -Question "Please enter a valid solution name (a-z|A-Z - min. 3 char)" -ValidationRegEx "^([a-z]|[A-Z]){3}([a-z]|[A-Z])*$" -Required
 
-if (!Confirm -Question "Would you like to install a Docker environment preset?" -DefaultYes) 
+if (!(Confirm -Question "Would you like to install a Docker environment preset?" -DefaultYes)) 
 {
     Write-Host "Okay, No Docker preset will be installed.." -ForegroundColor Yellow
     Rename-SolutionFile $solutionName
     exit 0
 }
 
-$dockerPreset = Select-DockerStarterKit -Title "^^^^^^^^^^^^^^^^^^^^^^ Docker environment 'starter-kit' ^^^^^^^^^^^^^^^^^^^^^^`n`n" -Message @"
+$dockerPreset = Select-DockerStarterKit -Disclaimer @"
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                         ->> DISCLAIMER <<- 
     We highly recommend that you do NOT attempt to use this setup 
@@ -61,7 +61,7 @@ $dockerPreset = Select-DockerStarterKit -Title "^^^^^^^^^^^^^^^^^^^^^^ Docker en
 
 Write-Host "$($dockerPreset) selected.." -ForegroundColor Magenta
 
-Install-DockerStarterKit -Name $dockerPreset -IncludeSolutionFiles (Confirm -Question "Would you like to include a basic solution setup?" -DefaultYes)
+Install-DockerStarterKit -Name $dockerPreset -IncludeSolutionFiles (Confirm -Question "Would you like to include a basic solution msbuild setup?" -DefaultYes)
 
 
 Rename-SolutionFile $solutionName

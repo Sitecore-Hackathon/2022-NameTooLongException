@@ -5,26 +5,23 @@ function Select-DockerStarterKit {
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [string] 
-        $Title,
-        [Parameter(Mandatory = $true)]
-        [ValidateNotNullOrEmpty()]
-        [string] 
         $Disclaimer
     )
-
     Write-Host $Disclaimer -ForegroundColor Cyan
     $experienceType = "xm"
     
-    if (($host.ui.PromptForChoice("Type of Experience", @"
-    Would you like a docker setup for Sitecore eXperience Manager (xm) or for Sitecore eXperience Platform (xp)?
-
-    Please only select XP if you use features not available in XM.`n
+    if (($host.ui.PromptForChoice("Select type of eXperience", @"
+Would you like a setup for Sitecore eXperience Manager (xm) or for Sitecore eXperience Platform (xp0)?
+--
+Please only select XP if you use features not available in XM.
+--
 "@, [ChoiceDescription[]](
-    [ChoiceDescription]::new("X&M0 (default)"), 
+    [ChoiceDescription]::new("X&M (default)"), 
     [ChoiceDescription]::new("X&P0")), 0)) -eq 1)
     {
         $experienceType = "xp0"
     }
+    Write-Host "$($experienceType) selected.." -ForegroundColor Magenta
 
     $options = [ChoiceDescription[]](
         [ChoiceDescription]::new("Clean Sitecore &$($experienceType) (default)"), 
@@ -32,10 +29,10 @@ function Select-DockerStarterKit {
         [ChoiceDescription]::new("&JavaScript Services (jss)"), 
         [ChoiceDescription]::new("Sitecore eXperience &Accelerator (sxa)")
     )
-    $result = $host.ui.PromptForChoice("Modules", @"
-    Select the Sitecore variant that match your Hackathon category.`n
+    $result = $host.ui.PromptForChoice("", @"
+Select the variant that match your Hackathon category.`n
 "@, $options, 0)
-
+    Write-Host ""
     switch ($result) {
         0 { "sitecore-$($experienceType)" }
         1 { "sitecore-$($experienceType)-rendering" }
@@ -55,16 +52,17 @@ function Install-DockerStarterKit {
         $StarterKitRoot = ".\_StarterKit",
         [ValidateNotNullOrEmpty()]
         [string] 
-        $DestinationFolder = ".\docker",
+        $DestinationFolder = ".\docker\",
         [bool]$IncludeSolutionFiles
     )
 
     $foldersRoot = Join-Path $StarterKitRoot "\docker"
     $solutionFiles = Join-Path $StarterKitRoot "\solution\*"
 
-    if (!(Test-Path $dockerPresetsPath)) {
-        throw "Docker preset not found on path $($dockerPresetsPath)"
+    if (Test-Path $DestinationFolder) {
+        Remove-Item $DestinationFolder -Force
     }
+    New-Item $DestinationFolder -ItemType directory
     
     if ((Test-Path $solutionFiles) -and $IncludeSolutionFiles) {
         Write-Host "Copying solution and msbuild files for local docker setup.." -ForegroundColor Green
@@ -77,7 +75,9 @@ function Install-DockerStarterKit {
         $folder = "$($folder)$($_)"; 
         if (Test-Path (Join-Path $foldersRoot $folder))
         {
-            Copy-Item (Join-Path $foldersRoot $folder) $DestinationFolder -Recurse -Force
+            $path = "$((Join-Path $foldersRoot $folder))\*"
+            Write-Host "Copying $($path) to $DestinationFolder"
+            Copy-Item $path $DestinationFolder -Recurse -Force
         }
         $folder = "$($folder)-"
     }
@@ -103,6 +103,7 @@ function Read-ValueFromHost {
         if ($value -eq "" -band $DefaultValue -ne "") { $value = $DefaultValue }
         $invalid = ($Required -and $value -eq "") -or ($ValidationRegEx -ne "" -and $value -notmatch $ValidationRegEx)
     } while ($invalid -bor $value -eq "q")
+    Write-Host ""
     $value
 }
 
@@ -123,6 +124,7 @@ function Confirm {
     if ($DefaultYes) { $defaultOption = 0 }
 
     $result = $host.ui.PromptForChoice("", $Question, $options, $defaultOption)
+    Write-Host ""
     switch ($result) {
         0 { return $true }
         1 { return $false }
@@ -193,7 +195,7 @@ function Start-Docker {
     docker-compose up -d
     Pop-Location
 
-    Write-Host "`n`n.. now we just have to do a little dance for 10 seconds to make sure Traefik is ready..`n`n`n" -ForegroundColor Green
+    Write-Host "`n`n.. if all went well then the last thing left is to do a little dance for 10 seconds to make sure Traefik is ready..`n`n`n" -ForegroundColor DarkYellow
     Write-PauseDanceAnim    
     Write-Host "`n`n`ndance done.. opening https://$($url)`n`n" -ForegroundColor DarkGray
     Start-Process "https://$url"
@@ -272,7 +274,7 @@ function Rename-SolutionFile {
         [string] 
         $FileToRename = ".\_Boilerplate.sln"
     )
-    if (Test-Path $FileToRename) {
+    if ((Test-Path $FileToRename) -and !(Test-Path ".\$($SolutionName).sln")) {
         Write-Host "Renaming solution file to: $($SolutionName).sln" -ForegroundColor Green
         Move-Item $FileToRename ".\$($SolutionName).sln"
     }
