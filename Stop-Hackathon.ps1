@@ -1,4 +1,4 @@
-Import-Module -Name (Join-Path $PSScriptRoot "_StarterKit\\tools\\_StarterKitFunctions") -Force
+Import-Module -Name (Join-Path $PSScriptRoot "_StarterKit\\tools\\StarterKitCLi") -Force
 
 Show-HackLogo
 

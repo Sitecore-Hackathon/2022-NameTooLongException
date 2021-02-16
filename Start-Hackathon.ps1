@@ -1,6 +1,6 @@
 #Requires -RunAsAdministrator
 
-Import-Module -Name (Join-Path $PSScriptRoot "_StarterKit\tools\_StarterKitFunctions") -Force
+Import-Module -Name (Join-Path $PSScriptRoot "_StarterKit\tools\StarterKitCLi") -Force
 
 Show-HackLogo
 
@@ -111,6 +111,7 @@ if (Confirm -Question "Would you like to adjust common environment settings?") {
 }
 
 Start-Docker -Url "cm.$($hostDomain)/sitecore" -Build
+
 
 Pop-Location
 
