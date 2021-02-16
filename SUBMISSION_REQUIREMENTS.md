@@ -23,4 +23,4 @@ The documentation requirements are extremely important. If the judges are unable
 - Installation steps with screenshots where appropriate
 - Short YouTube video describing your module's purpose, setup instructions, and how to use it
 
-**Read and follow the instructions in [ENTRYFROM.md](ENTRYFROM.md)**
+__Read and follow the instructions in__ [ENTRYFORM](ENTRYFORM.md)
