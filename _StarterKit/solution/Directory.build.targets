@@ -1,0 +1,36 @@
+<!--
+***********************************************************************************************
+Directory.Build.targets
+  
+  Solution-wide build targets. 
+  
+  Simple example of calling classic .net framework VS WebPublish when DeployOnBuild is set to true.
+
+  Also see Directory.Build.props and publishsettings.targets for publish profile properties.
+  
+                                                                      [Anders Laub // Laub+Co]
+***********************************************************************************************
+-->
+
+<Project>
+    <Import
+        Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets"
+        Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets')" />
+
+    <Target Name="AutoWebPublish" AfterTargets="Build" Condition="'$(DeployOnBuild)'=='True' AND '$(UsingMicrosoftNETSdk)' != 'True'">
+        <PropertyGroup>
+            <publishUrl Condition="!HasTrailingSlash('$(publishUrl)')">$(publishUrl)/</publishUrl>
+        </PropertyGroup>
+        <Message Importance="High" Text="Publishing project $(MSBuildProjectName) to $(publishUrl)."
+                 Condition="'$(DeployOnBuild)' == 'true'" />
+        <CallTarget Targets="WebPublish" />
+    </Target>
+
+    <Target Name="RemoveFilesFromWebPublish" AfterTargets="ResolveReferences">
+        <ItemGroup>
+            <_IgnoredFiles Include="@(SitecoreAssemblies)" Condition="'@(SitecoreAssemblies)' != ''" />
+            <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="'%(Filename)' != '' and '@(_IgnoredFiles)' != ''" />
+        </ItemGroup>
+    </Target>
+
+</Project>
