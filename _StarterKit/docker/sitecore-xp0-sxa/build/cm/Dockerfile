@@ -21,6 +21,7 @@ WORKDIR C:\inetpub\wwwroot
 
 # Add SPE module
 COPY --from=spe \module\cm\content .\
+RUN Rename-Item -Path "c:\inetpub\wwwroot\App_Config\Include\Spe\Spe.IdentityServer.config.disabled" -NewName "Spe.IdentityServer.config"
 
 # Add SXA module
 COPY --from=sxa \module\cm\content .\
