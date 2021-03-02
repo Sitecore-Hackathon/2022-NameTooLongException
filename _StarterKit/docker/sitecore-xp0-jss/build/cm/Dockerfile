@@ -2,14 +2,14 @@
 
 ARG PARENT_IMAGE
 ARG SOLUTION_IMAGE
-ARG JSS_IMAGE
+ARG HEADLESS_SERVICES_IMAGE
 ARG SPE_IMAGE
 ARG TOOLS_IMAGE
 
 FROM ${SOLUTION_IMAGE} as solution
 FROM ${TOOLS_IMAGE} as tools
 FROM ${SPE_IMAGE} as spe
-FROM ${JSS_IMAGE} as jss
+FROM ${HEADLESS_SERVICES_IMAGE} AS headless_services
 FROM ${PARENT_IMAGE}
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
@@ -32,10 +32,13 @@ COPY --from=spe \module\cm\content .\
 RUN Rename-Item -Path "c:\inetpub\wwwroot\App_Config\Include\Spe\Spe.IdentityServer.config.disabled" -NewName "Spe.IdentityServer.config"
 
 # Add JSS module
-COPY --from=jss \module\cm\content .\
-COPY --from=jss \module\tools \module\tools
+COPY --from=headless_services \module\cm\content .\
+COPY --from=headless_services \module\tools \module\tools
 RUN C:\module\tools\Initialize-Content.ps1 -TargetPath .\; `
     Remove-Item -Path C:\module -Recurse -Force;
+
+# Allow configurable JSS Import User
+COPY .\config .\App_Config\Include\
 
 # Copy solution website files
 COPY --from=solution /artifacts/platform/ ./

@@ -10,6 +10,8 @@ For those with prior experience working with Docker, we have provided a ["starte
 Please read carefully -- and thoroughly -- to ensure you have not missed any of the requirements.
 
 ### The Module
+The module has to be based on [**Sitecore 10.1**](https://dev.sitecore.net/Downloads/Sitecore_Experience_Platform/101/Sitecore_Experience_Platform_101.aspx)
+
 Since the installation of your module should be simple, we recommend you follow one of these approaches:
 - Sitecore module package (.zip)
 - Sitecore web deploy package (.scwdp.zip) with automated install

@@ -42,17 +42,21 @@ services:
     mem_limit: ${MEM_LIMIT_SQL:-2GB}
     restart: always
 
+  # Mount our Solr data folder and use our retagged Solr image.
   solr:
-    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-solr:${VERSION:-latest}
-    build:
-      context: ./build/solr
-      args:
-        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-solr:${SITECORE_VERSION}
-        SXA_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/sxa-xp1-assets:${SXA_VERSION}
     volumes:
       - ${LOCAL_DATA_PATH}\solr:c:\data
     mem_limit: ${MEM_LIMIT_SOLR:-1GB}
     restart: always
+
+  # Some modules (like SXA) also require additions to the Solr image.
+  solr-init:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-solr-init:${VERSION:-latest}
+    build:
+      context: ./build/solr-init
+      args:
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-solr-init:${SITECORE_VERSION}
+        SXA_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/sxa-xp1-assets:${SXA_VERSION}
 
   id:
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-id:${VERSION:-latest}

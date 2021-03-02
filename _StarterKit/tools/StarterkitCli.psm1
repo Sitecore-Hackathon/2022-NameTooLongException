@@ -203,9 +203,11 @@ function Start-Docker {
     Pop-Location
 
     Write-Host "`n`n..now the last thing left to do is a little dance for about 15 seconds to make sure Traefik is ready..`n`n`n" -ForegroundColor DarkYellow
-    Write-Host "`nif something failed along the way, press [ctrl-c] to stop the dance and try again. Use '.\Remove-Starterkit' to clean up if needed..`n`n`n" -ForegroundColor Gray
+    Write-Host "`nif something failed along the way, press [ctrl-c] to stop the dance and try again. Use '.\Remove-Starterkit' to clean up if needed..`n" -ForegroundColor Gray
+    Write-Host "`ndon't forget to ""Populate Solr Managed Schema"" from the Control Panel`n`n`n" -ForegroundColor Yellow
     Write-PauseDanceAnim -PauseInSeconds 15    
     Write-Host "`n`n`ndance done.. opening https://$($url)`n`n" -ForegroundColor DarkGray
+    Write-Host "`nIf the request fails with a 404 on the first attempt then the dance wasn't long enough - just hit refresh..`n`n" -ForegroundColor DarkGray
     Start-Process "https://$url"
 }
 
@@ -243,7 +245,7 @@ function Install-SitecoreDockerTools {
         $SitecoreGallery = Get-PSRepository -Name SitecoreGallery
     }
     
-    $dockerToolsVersion = "10.0.5"
+    $dockerToolsVersion = "10.1.4"
     Remove-Module SitecoreDockerTools -ErrorAction SilentlyContinue
     if (-not (Get-InstalledModule -Name SitecoreDockerTools -RequiredVersion $dockerToolsVersion -ErrorAction SilentlyContinue)) {
         Write-Host "Installing SitecoreDockerTools..." -ForegroundColor Green

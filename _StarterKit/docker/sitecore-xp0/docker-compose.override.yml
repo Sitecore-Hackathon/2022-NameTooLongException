@@ -42,11 +42,6 @@ services:
     restart: always
 
   solr:
-    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-solr:${VERSION:-latest}
-    build:
-      context: ./build/solr
-      args:
-        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-solr:${SITECORE_VERSION}
     volumes:
       - ${LOCAL_DATA_PATH}\solr:c:\data
     mem_limit: ${MEM_LIMIT_SOLR:-1GB}

@@ -38,5 +38,5 @@ _docker-compose files has been moved the `.\docker` folder to keep the solution 
 
 _all images has Sitecore Powershell Extensions pre-installed_  
 
-# Yask for Sitecore
+# yask for Sitecore
 This "starter-kit" has evolved into _yet another Starter-kit_ for Sitecore. If you have any input, suggestions or other and would like to contribute to it's further development please check out [this repository](https://github.com/LaubPlusCo/sitecore-docker-starterkit)

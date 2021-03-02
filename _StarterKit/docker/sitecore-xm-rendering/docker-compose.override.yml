@@ -23,6 +23,32 @@ services:
       - dotnetsdk
     scale: 0
 
+  rendering:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-rendering:${VERSION:-latest}
+    build:
+      context: ./build/rendering
+      target: ${BUILD_CONFIGURATION}
+      args:
+        DEBUG_PARENT_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-dotnetsdk:${VERSION:-latest}
+        SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
+        ENTRYPOINT_PROJECT: ${RENDERING_ENTRYPOINT_PROJECT}
+    volumes:
+      - ..\:C:\solution
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://*:80"
+      Sitecore__InstanceUri: "http://cm"
+      Sitecore__RenderingHostUri: "https://${RENDERING_HOST}"
+      Sitecore__EnableExperienceEditor: "true"
+    depends_on:
+      - solution
+      - cm
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rendering-secure.entrypoints=websecure"
+      - "traefik.http.routers.rendering-secure.rule=Host(`${RENDERING_HOST}`)"
+      - "traefik.http.routers.rendering-secure.tls=true"
+
   traefik:
     volumes:
       - ./traefik:C:/etc/traefik
@@ -30,13 +56,13 @@ services:
       - cm
 
   mssql:
-    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-mssql:${VERSION:-latest}
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xm1-mssql:${VERSION:-latest}
     build:
       context: ./build/mssql
       args:
-        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-mssql:${SITECORE_VERSION}
-        SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}
-        HEADLESS_SERVICES_IMAGE: ${HEADLESS_SERVICES_IMAGE}  
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm1-mssql:${SITECORE_VERSION}
+        SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}   
+        HEADLESS_SERVICES_IMAGE: ${HEADLESS_SERVICES_IMAGE}       
     volumes:
       - ${LOCAL_DATA_PATH}\mssql:c:\data
     mem_limit: ${MEM_LIMIT_SQL:-2GB}
@@ -60,16 +86,16 @@ services:
       SITECORE_LICENSE_LOCATION: c:\license\license.xml
 
   cm:
-    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-cm:${VERSION:-latest}
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xm1-cm:${VERSION:-latest}
     build:
       context: ./build/cm
       args:
-        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-cm:${SITECORE_VERSION}
+        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm1-cm:${SITECORE_VERSION}
         SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
         SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}
         TOOLS_IMAGE: ${TOOLS_IMAGE}
-        HEADLESS_SERVICES_IMAGE: ${HEADLESS_SERVICES_IMAGE}  
-        NODEJS_VERSION: ${NODEJS_VERSION}
+        MANAGEMENT_SERVICES_IMAGE: ${MANAGEMENT_SERVICES_IMAGE}
+        HEADLESS_SERVICES_IMAGE: ${HEADLESS_SERVICES_IMAGE}        
     depends_on:
       - solution
     volumes:
@@ -78,7 +104,6 @@ services:
       - ${HOST_LICENSE_FOLDER}:c:\license
     environment:
       SITECORE_LICENSE_LOCATION: c:\license\license.xml
-      Sitecore_JSS_ImportUser: ${JSS_IMPORT_USER:-sitecore\admin}
     entrypoint: powershell -Command "& C:\tools\entrypoints\iis\Development.ps1"
     mem_limit: ${MEM_LIMIT_CM:-4GB}
     restart: always
@@ -87,53 +112,3 @@ services:
       - "traefik.http.routers.cm.entrypoints=web"
       - "traefik.http.routers.cm.rule=Host(`${CM_HOST}`)"
       - "traefik.http.routers.cm.middlewares=redirect-to-https"
-
-  xconnect:
-    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-xconnect:${VERSION:-latest}
-    build:
-      context: ./build/xconnect
-      args:
-        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-xconnect:${SITECORE_VERSION}
-        SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}        
-        TOOLS_IMAGE: ${TOOLS_IMAGE}
-    environment: 
-      SITECORE_LICENSE_LOCATION: C:\license
-    depends_on:
-      - solution      
-    volumes:
-      - ${HOST_LICENSE_FOLDER}:C:\license
-      - ${LOCAL_DEPLOY_PATH}\xconnect:C:\deploy
-    entrypoint: powershell -Command "& C:\tools\entrypoints\iis\Development.ps1"
-
-  xdbsearchworker:
-    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-xdbsearchworker:${VERSION:-latest}
-    build:
-      context: ./build/xdbsearchworker
-      args:
-        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-xdbsearchworker:${SITECORE_VERSION}
-    volumes:
-      - ${HOST_LICENSE_FOLDER}:c:\license
-    environment: 
-      SITECORE_LICENSE_LOCATION: c:\license\
-
-  xdbautomationworker:
-    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-xdbautomationworker:${VERSION:-latest}
-    build:
-      context: ./build/xdbautomationworker
-      args:
-        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-xdbautomationworker:${SITECORE_VERSION}
-    volumes:
-      - ${HOST_LICENSE_FOLDER}:c:\license
-    environment: 
-      SITECORE_LICENSE_LOCATION: c:\license\
-
-  cortexprocessingworker:
-    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xp0-cortexprocessingworker:${VERSION:-latest}
-    build:
-      context: ./build/cortexprocessingworker
-      args:
-        PARENT_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xp0-cortexprocessingworker:${SITECORE_VERSION}
-    volumes:
-      - ${HOST_LICENSE_FOLDER}:c:\license
-    environment: 
-      SITECORE_LICENSE_LOCATION: c:\license\

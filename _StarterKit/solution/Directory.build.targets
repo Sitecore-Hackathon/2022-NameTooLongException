@@ -13,16 +13,15 @@ Directory.Build.targets
 -->
 
 <Project>
-    <Import
-        Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets"
-        Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets')" />
+    <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.0.79" />
+
+    <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets')" />
 
     <Target Name="AutoWebPublish" AfterTargets="Build" Condition="'$(DeployOnBuild)'=='True' AND '$(UsingMicrosoftNETSdk)' != 'True'">
         <PropertyGroup>
             <publishUrl Condition="!HasTrailingSlash('$(publishUrl)')">$(publishUrl)/</publishUrl>
         </PropertyGroup>
-        <Message Importance="High" Text="Publishing project $(MSBuildProjectName) to $(publishUrl)."
-                 Condition="'$(DeployOnBuild)' == 'true'" />
+        <Message Importance="High" Text="Publishing project $(MSBuildProjectName) to $(publishUrl)." Condition="'$(DeployOnBuild)' == 'true'" />
         <CallTarget Targets="WebPublish" />
     </Target>
 

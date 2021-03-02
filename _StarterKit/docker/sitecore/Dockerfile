@@ -11,7 +11,7 @@ ARG BUILD_IMAGE
 # This technique is described here:
 # https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/building-net-docker-images?view=aspnetcore-3.1#the-dockerfile-1
 FROM ${BUILD_IMAGE} AS nuget-prep
-COPY *.sln nuget.config /nuget/
+COPY *.sln nuget.config Directory.Build.targets Packages.props /nuget/
 COPY src/ /temp/
 RUN Invoke-Expression 'robocopy C:/temp C:/nuget/src /s /ndl /njh /njs *.csproj *.scproj packages.config'
 
@@ -34,6 +34,7 @@ COPY src/ ./src/
 RUN mkdir ./docker/deploy/platform
 
 # Build the solution to generate build artifacts
+## assumes that the msbuild property <SitecoreRoleType>platform|rendering</SitecoreRoleType> is used to target deploy folders 
 RUN Get-ChildItem *.sln | %{  msbuild $_.FullName /p:Configuration=$env:BUILD_CONFIGURATION /m /p:DeployOnBuild=true /p:IsLocalDockerDeploy=true }
 
 # Save the artifacts for copying into other images (see 'cm' and 'rendering' Dockerfiles).

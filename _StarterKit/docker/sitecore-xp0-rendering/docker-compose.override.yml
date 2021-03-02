@@ -23,6 +23,32 @@ services:
       - dotnetsdk
     scale: 0
 
+  rendering:
+    image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-rendering:${VERSION:-latest}
+    build:
+      context: ./build/rendering
+      target: ${BUILD_CONFIGURATION}
+      args:
+        DEBUG_PARENT_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-dotnetsdk:${VERSION:-latest}
+        SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
+        ENTRYPOINT_PROJECT: ${RENDERING_ENTRYPOINT_PROJECT}
+    volumes:
+      - ..\:C:\solution
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://*:80"
+      Sitecore__InstanceUri: "http://cm"
+      Sitecore__RenderingHostUri: "https://${RENDERING_HOST}"
+      Sitecore__EnableExperienceEditor: "true"
+    depends_on:
+      - solution
+      - cm
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rendering-secure.entrypoints=websecure"
+      - "traefik.http.routers.rendering-secure.rule=Host(`${RENDERING_HOST}`)"
+      - "traefik.http.routers.rendering-secure.tls=true"
+
   traefik:
     volumes:
       - ./traefik:C:/etc/traefik
@@ -68,8 +94,8 @@ services:
         SOLUTION_IMAGE: ${REGISTRY}${COMPOSE_PROJECT_NAME}-solution:${VERSION:-latest}
         SPE_IMAGE: ${SITECORE_DOCKER_REGISTRY}modules/spe-assets:${SPE_VERSION}
         TOOLS_IMAGE: ${TOOLS_IMAGE}
+        MANAGEMENT_SERVICES_IMAGE: ${MANAGEMENT_SERVICES_IMAGE}
         HEADLESS_SERVICES_IMAGE: ${HEADLESS_SERVICES_IMAGE}  
-        NODEJS_VERSION: ${NODEJS_VERSION}
     depends_on:
       - solution
     volumes:
@@ -78,7 +104,6 @@ services:
       - ${HOST_LICENSE_FOLDER}:c:\license
     environment:
       SITECORE_LICENSE_LOCATION: c:\license\license.xml
-      Sitecore_JSS_ImportUser: ${JSS_IMPORT_USER:-sitecore\admin}
     entrypoint: powershell -Command "& C:\tools\entrypoints\iis\Development.ps1"
     mem_limit: ${MEM_LIMIT_CM:-4GB}
     restart: always

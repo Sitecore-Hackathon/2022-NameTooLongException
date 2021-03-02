@@ -16,7 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution", "_Solution", "{
 		.gitignore = .gitignore
 		Directory.build.props = Directory.build.props
 		Directory.build.targets = Directory.build.targets
+		Docker.pubxml = Docker.pubxml
 		nuget.config = nuget.config
+		Packages.props = Packages.props
 		README.md = README.md
 	EndProjectSection
 EndProject
