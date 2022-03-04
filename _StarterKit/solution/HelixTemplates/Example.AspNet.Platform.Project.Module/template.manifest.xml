@@ -1,0 +1,30 @@
+<templateManifest typeOfTemplate="Module">
+  <name>Sitecore AspNet Rendering host Helix Project layer Module (example)</name>
+  <description>Targets both platform and rendering host. 
+  
+Important: Depends on the msbuild setup found in the Solution template for Sitecore 10.2.</description>
+  <version>1.0.0</version>
+  <author>Anders Laub</author>
+  <sourceFolder>/src</sourceFolder>
+  <saveOnCreate>true</saveOnCreate>
+  <templateEngine type="LaubPlusCo.Foundation.HelixTemplating.TemplateEngine.DefaultHelixTemplateEngine, LaubPlusCo.Foundation.HelixTemplating" />
+  <replacementTokens>
+    <token key="$moduleName$" displayName="Module name" default="$safeprojectname$" input="Text" required="true" validationType="LaubPlusCo.Foundation.HelixTemplating.Tokens.ValidateModuleNameToken, LaubPlusCo.Foundation.HelixTemplating" />
+    <token key="$moduleNamespace$" displayName="Module namespace" required="true" default="Project.$safeprojectname$" input="Text" suggestType="LaubPlusCo.Foundation.HelixTemplating.Tokens.SuggestNamespaceToken, LaubPlusCo.Foundation.HelixTemplating" validationType="LaubPlusCo.Foundation.HelixTemplating.Tokens.ValidateNamespaceToken, LaubPlusCo.Foundation.HelixTemplating" />
+    <token key="$platformFrameworkversion$" displayName="Platform Target Framework" default="net48" required="true" input="Text" />
+    <token key="$renderingFrameworkversion$" displayName="Rendering Target Framework" default="netcoreapp3.1" required="true" input="Text" />
+    <token key="$renderingOutputFolderName$" displayName="Rendering host output folder name" default="rendering" input="Text" required="true" />
+    <token key="$siteName$" displayName="Sitecore site definition name" default="my-website" input="Text" required="true" />
+    <token key="$siteHostname$" displayName="Sitecore site hostname" default="*cm*|*cd*" input="Text" required="true" />    
+    <token key="$sitecoreApiKey$" displayName="Sitecore API Key (update in appSettings if left blank)" required="false" default="" input="Text"  />
+    <token key="$instanceUri$" displayName="Sitecore Instance URI" default="http://cd" input="Text" required="true" />
+    <token key="$devInstanceUri$" displayName="Sitecore Instance URI (development)" default="$instanceUri$" input="Text" required="true" />
+  </replacementTokens>
+  <projectsToAttach>
+    <projectFile path="/src/Project/$modulename$/platform/$moduleNamespace$.Platform.csproj" />
+    <projectFile path="/src/Project/$modulename$/rendering/$moduleNamespace$.Rendering.csproj" />
+  </projectsToAttach>
+  <ignoreFiles>
+    <file path="/template.manifest.xml" />
+  </ignoreFiles>
+</templateManifest>

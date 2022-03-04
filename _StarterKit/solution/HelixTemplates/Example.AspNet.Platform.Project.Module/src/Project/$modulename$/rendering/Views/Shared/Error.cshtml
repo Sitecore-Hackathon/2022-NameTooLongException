@@ -1,0 +1,16 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div id="MainPanel">
+    <h1>Error</h1>
+    <h2>An error occurred while processing your request.</h2>
+
+    @if (Model.IsInvalidRequest)
+    {
+        <div style="font-size: larger">
+            Layout service response was 'Invalid Request.' You may need need to publish your Sitecore API key.
+        </div>
+    }
+</div>

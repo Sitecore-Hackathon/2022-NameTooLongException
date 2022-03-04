@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>$renderingFrameworkversion$</TargetFramework>
+		<SitecoreRoleType>rendering</SitecoreRoleType>
+		<IsDeploymentModule>true</IsDeploymentModule>
+		<OutputFolderName>$renderingOutputFolderName$</OutputFolderName>
+<!-- Uncomment for local docker support.
+		<DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+		<DockerfileContext>..\..\..\..\..</DockerfileContext>
+-->
+		<AssemblyName>$moduleNamespace$.Rendering</AssemblyName>
+		<RootNamespace>$moduleNamespace$.Rendering</RootNamespace>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Http" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+    <PackageReference Include="Sitecore.AspNet.ExperienceEditor" />
+    <PackageReference Include="Sitecore.LayoutService.Client" />
+    <PackageReference Include="Sitecore.AspNet.RenderingEngine" />
+  </ItemGroup>
+</Project>

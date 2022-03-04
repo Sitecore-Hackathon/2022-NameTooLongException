@@ -1,5 +1,5 @@
 ![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
-# Sitecore Hackathon 2021
+# Sitecore Hackathon 2022
 
 - MUST READ: **[Submission requirements](SUBMISSION_REQUIREMENTS.md)**
 - [Entry form template](ENTRYFORM.md)

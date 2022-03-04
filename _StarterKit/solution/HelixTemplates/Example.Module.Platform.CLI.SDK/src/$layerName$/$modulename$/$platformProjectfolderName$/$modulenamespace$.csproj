@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>$netframeworkversion$</TargetFramework>
+    <RootNamespace>$moduleNamespace$</RootNamespace>
+    <AssemblyName>$moduleNamespace$</AssemblyName>
+    <SitecoreRoleType>$platformProjectfolderName$</SitecoreRoleType>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SupportsSystemWeb" />
+  </ItemGroup>
+</Project>

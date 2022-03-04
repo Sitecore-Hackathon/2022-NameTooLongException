@@ -1,12 +1,23 @@
 # may contain OAuth secrets, do not commit
 .sitecore/user.json
 
+# NuGet cache for Sitecore CLI
+.sitecore/package-cache/
+
 # Ephemeral index caches used by serialization, do not commit
 .scindex
 
 # Don't commit packages
 *.itempackage
 *.sicpackage
+
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
 #Ignore thumbnails created by Windows
 Thumbs.db

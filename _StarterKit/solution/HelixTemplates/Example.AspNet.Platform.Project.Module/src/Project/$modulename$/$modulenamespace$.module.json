@@ -1,0 +1,12 @@
+{
+    "namespace": "$moduleNamespace$",
+    "references": ["Feature.*"],
+    "items": {
+        "includes": [
+            {
+                "name": "templates",
+                "path": "/sitecore/templates/Project/$moduleName$"
+            }
+        ]
+    }
+}

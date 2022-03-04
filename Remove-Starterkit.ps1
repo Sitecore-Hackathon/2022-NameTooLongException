@@ -20,26 +20,10 @@ if (Test-Path .\docker)
     Remove-Item ".\\docker" -Force -Recurse
 }
 
-
-if (Test-Path .\Docker.pubxml) 
-{
-    Remove-Item .\Docker.pubxml -Force 
-}
-
-if (Test-Path .\HelixTemplates) 
-{
-    Remove-Item .\HelixTemplates -Force -Recurse
-}
-
-if (Test-Path .\.helixtemplates) 
-{
-    Remove-Item .\.helixtemplates -Force
-}
-
-if (Test-Path .\Dockerfile) 
-{
-    Remove-Item .\Dockerfile -Force 
-}
+Remove-Item .\_Build -Force -Recurse -ErrorAction SilentlyContinue
+Remove-Item .\HelixTemplates -Force -Recurse -ErrorAction SilentlyContinue
+Remove-Item .\.helixtemplates -Force -ErrorAction SilentlyContinue
+Remove-Item .\.dockerignore -Force -ErrorAction SilentlyContinue
 
 if ((Test-Path .\*.sln) -and (Confirm -Question "Would you also like to delete the solution files?")) 
 {

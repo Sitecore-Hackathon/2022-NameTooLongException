@@ -1,8 +1,47 @@
 #Requires -RunAsAdministrator
+param (
+    [Switch]
+    $IdeaThree
+)
 
 Import-Module -Name (Join-Path $PSScriptRoot "_StarterKit\tools\StarterKitCLi") -Force
 
 Show-HackLogo
+
+if (Test-Path .\.idea3) {
+    Write-Host "Duuhh.. rtfm; You cannot use this script anymore since you've selected idea #3...`n`n" -ForegroundColor Cyan
+    Write-Host "Now get back to work!...`n`n" -ForegroundColor DarkGray
+    exit 0
+}
+
+if ($IdeaThree.IsPresent -and (Confirm "This will download and extract the files needed for idea #3 into this folder.`nPlease confirm?")) {
+    Write-Host "Downloading..." -ForegroundColor Green
+
+    $url = Get-FetchUrl
+    Invoke-WebRequest -Uri $url -OutFile .\archive.zip
+    if (!(Test-Path .\archive.zip)) {
+        Write-Host "Could not download required files.. Please try again or download it manually from Github..." -ForegroundColor Red
+        exit 0
+    }
+    mkdir .\_tmp
+    Expand-Archive .\archive.zip -DestinationPath .\_tmp
+
+    Move-Item .\README.md .\README-HACKATHON.md -Force
+    Remove-Item .\License -Recurse -Force
+
+    Get-ChildItem .\_tmp\ | Where-Object { $_.PSIsContainer } | ForEach-Object{ Copy-Item -Path "$($_.FullName)\*" -Destination .\ -Force -Recurse  }
+    Write-Host "Data fetched and extacted.. Cleaning up.." -ForegroundColor Magenta
+    Remove-Item .\Stop-Hackathon.ps1 -Force
+    Remove-Item .\Remove-Starterkit.ps1 -Force
+    Remove-Item .\_tmp -Recurse -Force
+    Remove-Item .\archive.zip -Force
+    Write-Output "[image of cute kitten]" > .\.idea3
+    Write-Host "Done.. Now follow the instructions found in .\README.md " -ForegroundColor Green
+    Write-Host "`nor simply run `n`n.\Start-Environment -LicensePath {path to valid license.xml}`n`nand follow the on-screen instructions..`n" -ForegroundColor Yellow
+    Write-Host "`nRemember to commit and push the setup so other team members can get started.`n " -ForegroundColor Magenta
+    exit 0
+}
+
 
 if (Test-IsEnvInitialized -FilePath ".\docker\.env" ) {
     Write-Host "Docker environment is present, starting docker.." -ForegroundColor Green
@@ -22,6 +61,14 @@ if (Test-IsEnvInitialized -FilePath ".\docker\.env" ) {
     exit 0
 }
 
+if (!$IdeaThree.IsPresent) {
+    Write-Host "`n[IMPORTANT] " -ForegroundColor Blue -NoNewline
+    Write-Host "If you plan to work on idea #3 - please exit this script by pressing [ctrl-c] and run it again with the switch -IdeaThree `n`n" -ForegroundColor Yellow
+    Write-Host "`like this:" -ForegroundColor DarkGray
+    Write-PrePrompt
+    Write-Host ".\Start-Hackathon.ps1 -IdeaThree`n`n" -ForegroundColor White
+}
+
 if ( !(Test-Path ".\_StarterKit\docker")) {
     Write-Host "Starter-kit docker setups not found - you're on your own.." -ForegroundColor Green
     exit 0
@@ -35,6 +82,8 @@ if ((Test-Path ".\*.sln")) {
         Remove-Item (Join-Path $PSScriptRoot "docker") -Force -Recurse
     }
 }
+
+Stop-IisIfRunning
 
 $solutionName = Read-ValueFromHost -Question "Please enter a valid solution name`n(Capital first letter, letters and numbers only, min. 3 char)" -ValidationRegEx "^[A-Z]([a-z]|[A-Z]|[0-9]){2}([a-z]|[A-Z]|[0-9])*$" -Required
 
@@ -61,8 +110,8 @@ $dockerPreset = Select-DockerStarterKit -Disclaimer @"
 
 Write-Host "$($dockerPreset) selected.." -ForegroundColor Magenta
 
-Install-DockerStarterKit -Name $dockerPreset -IncludeSolutionFiles (Confirm -Question "Would you like to include a basic solution msbuild setup?" -DefaultYes)
-
+Write-Host "`nIncluding a basic solution msbuild setup" -ForegroundColor Green
+Install-DockerStarterKit -Name $dockerPreset -IncludeSolutionFiles $true
 
 Rename-SolutionFile $solutionName
 Install-SitecoreDockerTools
@@ -80,14 +129,13 @@ Write-Host "Copied license.xml to .\docker\license\" -ForegroundColor Magenta
 
 Push-Location ".\docker"
 Set-EnvFileVariable "COMPOSE_PROJECT_NAME" -Value $solutionName.ToLower() 
+Set-EnvFileVariable "REGISTRY" -Value (Read-ValueFromHost -Question "Local container registry (leave empty if none, must end with /)")
 Set-EnvFileVariable "HOST_LICENSE_FOLDER" -Value ".\license"
 Set-EnvFileVariable "HOST_DOMAIN"  -Value $hostDomain
 Set-EnvFileVariable "CM_HOST" -Value "cm.$($hostDomain)"
-Set-EnvFileVariable "CD_HOST" -Value "cd.$($hostDomain)"
 Set-EnvFileVariable "ID_HOST" -Value "id.$($hostDomain)"
 Set-EnvFileVariable "RENDERING_HOST" -Value "www.$($hostDomain)"
 
-Set-EnvFileVariable "REPORTING_API_KEY" -Value (Get-SitecoreRandomString 128 -DisallowSpecial)
 Set-EnvFileVariable "TELERIK_ENCRYPTION_KEY" -Value (Get-SitecoreRandomString 128)
 Set-EnvFileVariable "MEDIA_REQUEST_PROTECTION_SHARED_SECRET" -Value (Get-SitecoreRandomString 64 -DisallowSpecial)
 Set-EnvFileVariable "SITECORE_IDSECRET" -Value (Get-SitecoreRandomString 64 -DisallowSpecial)
@@ -95,20 +143,16 @@ $idCertPassword = Get-SitecoreRandomString 8 -DisallowSpecial
 Set-EnvFileVariable "SITECORE_ID_CERTIFICATE" -Value (Get-SitecoreCertificateAsBase64String -DnsName "localhost" -Password (ConvertTo-SecureString -String $idCertPassword -Force -AsPlainText))
 Set-EnvFileVariable "SITECORE_ID_CERTIFICATE_PASSWORD" -Value $idCertPassword
 Set-EnvFileVariable "SQL_SA_PASSWORD" -Value (Get-SitecoreRandomString 19 -DisallowSpecial -EnforceComplexity)
-Set-EnvFileVariable "SITECORE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore image version`n(10.1-ltsc2019, 10.1-1909, 10.1-2004, 10.1-20H2 - press enter for 10.1-ltsc2019)" -DefaultValue "10.1-ltsc2019" -Required)
+Set-EnvFileVariable "SITECORE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore image version`n(10.2-ltsc2019, 10.2-2009, 10.2-20H2 - press enter for 10.2-ltsc2019)" -DefaultValue "10.2-ltsc2019" -Required)
 Set-EnvFileVariable "SITECORE_ADMIN_PASSWORD" -Value (Read-ValueFromHost -Question "Sitecore admin password (press enter for 'b')" -DefaultValue "b" -Required)
-
-if (Confirm -Question "Would you like to adjust common environment settings?") {
-    Set-EnvFileVariable "SPE_VERSION" -Value (Read-ValueFromHost -Question "Sitecore Powershell Extensions version (press enter for 6.2-1809)" -DefaultValue "6.2-1809" -Required)
-    Set-EnvFileVariable "REGISTRY" -Value (Read-ValueFromHost -Question "Local container registry (leave empty if none, must end with /)")
-    Set-EnvFileVariable "ISOLATION" -Value (Read-ValueFromHost -Question "Container isolation mode (press enter for default)" -DefaultValue "default" -Required)
-}
 
 if (Confirm -Question "Would you like to adjust container memory limits?") {
     Set-EnvFileVariable "MEM_LIMIT_SQL" -Value (Read-ValueFromHost -Question "SQL Server memory limit (default: 4GB)" -DefaultValue "4GB" -Required)
     Set-EnvFileVariable "MEM_LIMIT_SOLR" -Value (Read-ValueFromHost -Question "Solr memory limit (default: 2GB)" -DefaultValue "2GB" -Required)
     Set-EnvFileVariable "MEM_LIMIT_CM" -Value (Read-ValueFromHost -Question "CM Server memory limit (default: 4GB)" -DefaultValue "4GB" -Required)
 }
+
+dotnet tool restore
 
 Start-Docker -Url "cm.$($hostDomain)/sitecore" -Build
 

@@ -1,0 +1,12 @@
+{
+    "namespace": "$moduleNamespace$",
+    "references": ["$serializationDeps$"],
+    "items": {
+        "includes": [
+            {
+                "name": "templates",
+                "path": "/sitecore/templates/Project/$moduleName$"
+            }
+        ]
+    }
+}
