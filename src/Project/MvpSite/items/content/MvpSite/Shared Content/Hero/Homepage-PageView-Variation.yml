@@ -2,7 +2,7 @@
 ID: "bc0b8e49-a7e9-4a7e-87ad-d5ae9910d227"
 Parent: "ba07af03-314b-49dd-92f7-1ee330bd63e0"
 Template: "86864760-3b8b-4e79-927e-0addcd14055d"
-Path: "/sitecore/content/MvpSite/Shared Content/Hero/Homepage-Year-Variation"
+Path: "/sitecore/content/MvpSite/Shared Content/Hero/Homepage-PageView-Variation"
 Languages:
 - Language: en
   Versions:

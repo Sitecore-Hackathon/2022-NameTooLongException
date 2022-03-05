@@ -49,16 +49,16 @@ SharedFields:
                 uid="{C5B4986C-1DC8-4885-A0BF-09E74D4D759B}">
                 <conditions>
                   <condition
-                    id="{A3FF67B0-4F52-49FC-A0FF-F7951A065ADD}"
-                    uid="485FCF84140F4ED693BB7A69920C7C6E"
-                    BoxeverTestID="2"
-                    value="1" />
+                    id="{8E72C925-48BE-4200-B6BF-D5C64117C546}"
+                    uid="BA3EB7B3A52B4E47840CBEC86915FC1E"
+                    SendEmailGroupId="b0eacdea-b833-4edb-af44-4dfb854d8ec7"
+                    value="b0eacdea-b833-4edb-af44-4dfb854d8ec7" />
                 </conditions>
                 <actions>
                   <action
                     id="{0F3C6BEC-E56B-4875-93D7-2846A75881D2}"
                     uid="D6BE38D030A046AD86E35A8254259BC0"
-                    DataSource="{BC0B8E49-A7E9-4A7E-87AD-D5AE9910D227}" />
+                    DataSource="{FC5A4F96-06FA-49DE-BD1B-277E3CE65C6A}" />
                 </actions>
               </rule>
               <rule
@@ -68,8 +68,8 @@ SharedFields:
                   <condition
                     id="{A3FF67B0-4F52-49FC-A0FF-F7951A065ADD}"
                     uid="E4FAA8BE888A46D7822339FC10C2B699"
-                    BoxeverTestID="1"
-                    value="2" />
+                    BoxeverTestID="ntlepageviewedapi"
+                    value="1" />
                 </conditions>
                 <actions>
                   <action
@@ -200,7 +200,7 @@ Languages:
       Value: 20200513T045800Z
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "8382206a-6286-47b7-9df3-90ef1bf1ed40"
+      Value: "e0027108-8676-4f86-9b7d-11b27d485988"
     - ID: "b1ece12f-b2c9-44e6-92a3-c5dfd6514b59"
       Hint: Menu Title
       Value: Home
@@ -210,4 +210,4 @@ Languages:
         sitecore\Admin
     - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
       Hint: __Updated
-      Value: 20220305T174630Z
+      Value: 20220305T213403Z
