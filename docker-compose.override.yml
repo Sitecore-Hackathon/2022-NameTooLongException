@@ -171,6 +171,7 @@ services:
       Okta__ClientSecret: ${OKTA_CLIENT_SECRET}
       Okta__AuthorizationServerId: ${OKTA_AUTH_SERVER_ID}
       Okta__RedirectUri: "https://${CD_HOST}/identity/externallogincallback"
+      Okta__DevelopmentMode: ${OKTA_DevelopmentMode}
       Sitecore__ExternalCdUrl: "${CD_HOST}"
       MVP_RENDERING_HOST_PUBLIC_URI: ${MVP_RENDERING_HOST}      
     mem_limit: ${MEM_LIMIT_CD:-2GB}      
