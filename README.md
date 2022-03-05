@@ -14,20 +14,37 @@ Best addition to the Sitecore MVP site
 ## Description
 Our addition to the MVP site is client-side personalization based on configuration contributed in Sitecore.
 We all know the Sitecore personalization engine might be a bit slow from time to time. If your frontend is relying on a direct connection to the Layout Service, you will still notice this performance impact when personalization is used heavily in the site. Sitecore performs best when everything can be cached, which simply can't be done when a component/page is personalized.
-[Traditional Personalization](docs/images/personalization-normal.png?raw=true "Traditional Personalization")
+
+
+<img src="docs/images/personalization-normal.png?raw=true" width="250px" style="background-color: white" />
+
+
+
 To mitigate this, we moved the personalization engine to the 'client-side'. Instead of Sitecore evaluating all the conditions and returning the correct variant of a rendering, we want to return all variants as part of the JSON response from the Layout Service. This way we can make Sitecore always cache the JSON response, even when personalization has been applied.
-[Client-side Personalization](docs/images/personalization-clientside.png?raw=true "Client-side Personalization")
+
+
+
+<img src="docs/images/personalization-clientside.png?raw=true" width="250px" style="background-color: white" />
+
+
+
 Within the Rendering Host we then evaluate all the variants (if applicable) and only return one of the variants to the parts of the Rendering Engine which actually render the components. The components themselves don't know anything about what happened, they just receive a single object with content to display.
 
 Next to the fact that this brings performance improvements to the Sitecore platform, this setup will also make personalization possible when using Experience Edge. Normally, when using Experience Edge, Sitecore is only able to push items to Experience Edge which are then stored and served when requested. When the frontend application requests a page from Experience Edge, there is no callback happening to Sitecore to evaluate any kind of personalization rules.
 By adding all variants to the item pushed to Experience Edge, we can again trigger personalization rules to be evaluated in the frontend application instead. This way it is possible to use personalization when using Experience Edge!
-[Experience Edge Personalization](docs/images/personalization-edge.png?raw=true "Experience Edge Personalization")
+
+
+
+<img src="docs/images/personalization-edge.png?raw=true" width="250px" style="background-color: white" />
+
+
 
 To demonstrate that this works, we implemented 4 different rules:
 1. Day of Week; an OOTB Sitecore rule which checks the current day of the week against a provided list
 2. Month of Year; an OOTB Sitecore rule which checks the current month against a provided list
 3. Page visited; a rule integrated with Sitecore CDP/Personalize which triggers an Decision Model in Personalize to see if the current visitor has visited a specific page
 4. Form submitted; a rule integrated with Sitecore Send which checks if the visitor has submitted a form (inserted from Sitecore Send) on the site
+Please read the *Usage Instructions* section below to find out how to add additional rules, personalize a rendering and what the configuration in Sitecore Personalize and Sitecore Send looks like.
 
 ## Video link
 ⟹ Provide a video highlighing your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
@@ -87,19 +104,13 @@ As this is an addition to the MVP site, the changes have been added to the MVP s
 _Remove this subsection if your entry does not require any configuration that is not fully covered in the installation instructions already_
 
 ## Usage instructions
-⟹ Provide documentation about your module, how do the users use your module, where are things located, what do the icons mean, are there any secret shortcuts etc.
+Adding personalization on a page is exactly the same as what we are used to in Sitecore, no instructions needed.
 
-Include screenshots where necessary. You can add images to the `./images` folder and then link to them from your documentation:
-
-![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
-
-You can embed images of different formats too:
-
-![Deal With It](docs/images/deal-with-it.gif?raw=true "Deal With It")
-
-And you can embed external images too:
-
-![Random](https://thiscatdoesnotexist.com/)
+Please read the following instructions if you want to:
+- [Configure a rendering to be personalizable](docs/configure-rendering.md)
+- [Configure a new personalization rule/condition](docs/configure-rule.md)
+- [Configure the demo rule in Sitecore Personalize](docs/configure-personalize.md)
+- [Configure the demo rule in Sitecore Send](docs/configure-send.md)
 
 ## Comments
 If you'd like to make additional comments that is important for your module entry.
