@@ -8,9 +8,10 @@
     "Sitecore.DevEx.Extensibility.Publishing@4.1.1"
   ],
   "serialization": {
-    "defaultMaxRelativeItemPathLength": 120,
+    "defaultMaxRelativeItemPathLength": 100,
     "defaultModuleRelativeSerializationPath": "items",
     "removeOrphansForRoles": true,
+    "continueOnItemFailure": false,
     "excludedFields": []
   }
 }

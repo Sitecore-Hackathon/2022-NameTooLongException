@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+        <AssemblyName>Mvp.Foundation.RulesEngine</AssemblyName>
+        <RootNamespace>Mvp.Foundation.RulesEngine</RootNamespace>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DebugType>full</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="moosend-api-wrapper" />
+        <PackageReference Include="Sitecore.LayoutService.Client" />
+        <PackageReference Include="Sitecore.AspNet.RenderingEngine" />
+    </ItemGroup>
+</Project>

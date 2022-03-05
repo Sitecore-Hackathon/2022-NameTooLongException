@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Sdk Name="Sitecore.Framework.Runtime.Build" Version="1.1.1" />
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <SitecoreRoleType>identity</SitecoreRoleType>
+        <IsDeploymentModule>True</IsDeploymentModule>
+        <RootNamespace>Mvp.Environment.Identity</RootNamespace>
+        <AssemblyName>Mvp.Environment.Identity</AssemblyName>
+    </PropertyGroup>
+</Project>

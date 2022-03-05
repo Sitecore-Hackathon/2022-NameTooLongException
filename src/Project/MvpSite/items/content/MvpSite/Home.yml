@@ -1,0 +1,213 @@
+﻿---
+ID: "94de9ac3-a9f7-40ab-ae90-acda364b9c40"
+Parent: "a43c6692-60f4-4743-a1be-6424de611dfa"
+Template: "9c1e30a0-8691-4ad4-bef0-e1f446eef8f3"
+Path: /sitecore/content/MvpSite/Home
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 100
+- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
+  Hint: __Renderings
+  Value: |
+    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <d
+        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
+        l="{1AE49D12-8DA1-4FBD-92FF-887B01C02BB5}">
+        <p
+          uid="{2E9F53E5-219A-4E52-95FA-802439F321CF}"
+          key="footer"
+          md="{40E386A6-C647-4069-93AB-4ABD1F87CFB9}" />
+        <p
+          uid="{55237C6B-781F-4335-AFBF-E34D1F23CF34}"
+          key="header"
+          md="{9AED7A3B-5823-4566-828E-B6A799DBCA3D}" />
+        <p
+          uid="{3BDBFD4A-EED5-4A57-8BC5-6EF79ACA1131}"
+          key="main"
+          md="{4C14AEC2-35C5-4A40-98D1-7A75A8452521}" />
+        <r
+          ds="{C4DADD5E-1521-4C6D-AFCE-39D237751541}"
+          id="{A4F28B31-5D18-4158-92AB-F4D2ECA6D2BE}"
+          par=""
+          ph="header"
+          uid="{7A160402-8C9A-4882-95C5-2596B9DCD261}" />
+        <r
+          id="{C9593FF9-14AC-4C8E-B217-D85C05ADEAD7}"
+          ph="header"
+          uid="{5B5FFD19-552C-4A6D-BB5F-0D2A24DD1839}" />
+        <r
+          ds="{537DEF5C-B38F-4356-8FCC-24E4838C2319}"
+          id="{DF79486F-2E7B-4EC8-8EFC-C9E6DFE813B7}"
+          par=""
+          ph="main"
+          uid="{614EB698-E1DF-4C30-A1DC-10CCF907F36F}">
+          <rls>
+            <ruleset>
+              <rule
+                name="Applied for mentor program"
+                uid="{C5B4986C-1DC8-4885-A0BF-09E74D4D759B}">
+                <conditions>
+                  <condition
+                    id="{A3FF67B0-4F52-49FC-A0FF-F7951A065ADD}"
+                    uid="485FCF84140F4ED693BB7A69920C7C6E"
+                    BoxeverTestID="2"
+                    value="1" />
+                </conditions>
+                <actions>
+                  <action
+                    id="{0F3C6BEC-E56B-4875-93D7-2846A75881D2}"
+                    uid="D6BE38D030A046AD86E35A8254259BC0"
+                    DataSource="{BC0B8E49-A7E9-4A7E-87AD-D5AE9910D227}" />
+                </actions>
+              </rule>
+              <rule
+                name="Viewed the Mentor Page"
+                uid="{2DF0F249-1B4B-44C2-89D2-0BF271107B6F}">
+                <conditions>
+                  <condition
+                    id="{A3FF67B0-4F52-49FC-A0FF-F7951A065ADD}"
+                    uid="E4FAA8BE888A46D7822339FC10C2B699"
+                    BoxeverTestID="1"
+                    value="2" />
+                </conditions>
+                <actions>
+                  <action
+                    id="{0F3C6BEC-E56B-4875-93D7-2846A75881D2}"
+                    uid="80B17B50D188490FA49592AAAB176BD2"
+                    DataSource="{10D1BA92-777E-4123-9AA0-274CCADD4F79}" />
+                </actions>
+              </rule>
+              <rule
+                name="Weekend"
+                uid="{145389B3-A24F-446A-B35B-B510D8735697}">
+                <conditions>
+                  <condition
+                    id="{C18B0900-ED61-47A8-AEF0-AD6D133512C8}"
+                    uid="3DD7CDE0170B424FA7C465AE12C900FB"
+                    DaysList="{B45FD42E-FBDC-4460-A179-DB0B5D22A3EA}|{04CC0FD2-C5DE-4F7C-B263-B1C88BABA6CD}" />
+                </conditions>
+                <actions>
+                  <action
+                    id="{0F3C6BEC-E56B-4875-93D7-2846A75881D2}"
+                    uid="24540BC6677C4EEFBABC81ED09F92271"
+                    DataSource="{CDFA20F7-4694-4F87-85F5-23ACA209B49A}" />
+                </actions>
+              </rule>
+              <rule
+                uid="{00000000-0000-0000-0000-000000000000}"
+                name="Default">
+                <conditions>
+                  <condition
+                    id="{4888ABBB-F17D-4485-B14B-842413F88732}"
+                    uid="F1F26EBF34F444C7AD92621BDECACCBA" />
+                </conditions>
+                <actions />
+              </rule>
+            </ruleset>
+          </rls>
+        </r>
+        <r
+          ds="{C6614898-2F30-4B46-BF5B-C72CD2CFDD68}"
+          id="{475CBA5E-EE80-4275-9758-D280F0781942}"
+          par=""
+          ph="main"
+          uid="{AD5E24E0-631B-423E-A835-B62F51AF661B}" />
+        <r
+          ds="{A7CC481A-B6C8-4604-B19F-50844263EE3E}"
+          id="{DB83F81C-40A4-45C1-9D66-91A99368B6C6}"
+          par=""
+          ph="main"
+          uid="{CF3B6A26-0B5D-4679-9FCA-40547BEBB126}" />
+        <r
+          id="{57805937-D345-4A28-8DDF-C62EE43D8EBA}"
+          ph="main"
+          uid="{D2DE8BE0-C911-46EB-9A32-DB8B4863AB2B}" />
+        <r
+          ds="{5E3A3F5B-CBF7-4D13-8A39-2BC9D5FD3F22}"
+          id="{A921AEC7-5DF7-4F8E-835A-6A5111CF94CF}"
+          par=""
+          ph="column-container"
+          uid="{CAB9C343-0F22-4C4A-B9FD-983D952391C3}" />
+        <r
+          id="{437CCC09-AB5D-47B3-96D7-2B05BDFF5324}"
+          ph="footer"
+          uid="{79F96B2D-698D-4B48-AC4C-1F1B71157C5F}" />
+      </d>
+    </r>
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "001dd393-96c5-490b-924a-b0f25cd9efd8"
+      Hint: __Lock
+      Value: <r />
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{614EB698-E1DF-4C30-A1DC-10CCF907F36F}">
+              <rls>
+                <ruleset>
+                  <rule
+                    uid="{89142250-B61D-4D61-90FA-3E678033B519}"
+                    p:before="*"
+                    s:name="Email Subscription - Send">
+                    <conditions>
+                      <condition
+                        uid="392C90D785CC4EC991D91D34F625B5B8"
+                        s:id="{8E72C925-48BE-4200-B6BF-D5C64117C546}"
+                        s:SendEmailGroupId="b0eacdea-b833-4edb-af44-4dfb854d8ec7"
+                        s:value="b0eacdea-b833-4edb-af44-4dfb854d8ec7" />
+                    </conditions>
+                    <actions>
+                      <action
+                        uid="2774F3FBB9EF41899E1E9CF23301B173"
+                        s:id="{0F3C6BEC-E56B-4875-93D7-2846A75881D2}"
+                        s:DataSource="{FC5A4F96-06FA-49DE-BD1B-277E3CE65C6A}" />
+                    </actions>
+                  </rule>
+                </ruleset>
+              </rls>
+            </r>
+            <r
+              uid="{CAB9C343-0F22-4C4A-B9FD-983D952391C3}">
+              <p:d />
+            </r>
+            <r
+              uid="{63330DA2-D2A5-4420-AFE9-90C3CCD4BFF7}"
+              p:after="r[@uid='{D2DE8BE0-C911-46EB-9A32-DB8B4863AB2B}']"
+              s:ds="{5E3A3F5B-CBF7-4D13-8A39-2BC9D5FD3F22}"
+              s:id="{A921AEC7-5DF7-4F8E-835A-6A5111CF94CF}"
+              s:par="ContentListType=%7BE58A021E-74D2-471E-9EBA-B09616350605%7D&amp;ContentListLimit"
+              s:ph="/main/column-container-{D2DE8BE0-C911-46EB-9A32-DB8B4863AB2B}-0" />
+            <r
+              uid="{29CD29C2-DA09-473C-91CC-A9D4D6A6569F}"
+              p:after="r[@uid='{63330DA2-D2A5-4420-AFE9-90C3CCD4BFF7}']"
+              s:ds="{64AE5870-3113-4AD0-9978-F4AC10A874CB}"
+              s:id="{A921AEC7-5DF7-4F8E-835A-6A5111CF94CF}"
+              s:par="ContentListType=%7B92DD658A-76BE-437A-86E4-589DF627FBCC%7D&amp;ContentListLimit"
+              s:ph="/main/column-container-{D2DE8BE0-C911-46EB-9A32-DB8B4863AB2B}-0" />
+          </d>
+        </r>
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200513T045800Z
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "8382206a-6286-47b7-9df3-90ef1bf1ed40"
+    - ID: "b1ece12f-b2c9-44e6-92a3-c5dfd6514b59"
+      Hint: Menu Title
+      Value: Home
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\Admin
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20220305T174630Z

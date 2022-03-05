@@ -1,0 +1,17 @@
+/data/cm/*
+!/data/cm/.gitkeep
+/data/cd/*
+!/data/cd/.gitkeep
+/data/sql/*
+!/data/sql/.gitkeep
+/data/solr/*
+!/data/solr/.gitkeep
+/license/*
+!/license/.gitkeep
+
+/deploy/platform/*
+!/deploy/platform/.gitkeep
+/deploy/identity/*
+!/deploy/identity/.gitkeep
+/deploy/mvp-rendering/*
+!/deploy/mvp-rendering/.gitkeep

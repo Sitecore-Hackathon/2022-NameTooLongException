@@ -1,0 +1,13 @@
+{
+  "namespace": "Feature.LayoutServiceExtensions",
+  "items": {
+    "includes": [
+      {
+        "name": "content resolvers",
+        "path": "/sitecore/system/Modules/Layout Service/Rendering Contents Resolvers/Personalized",
+        "allowedPushOperations": "createUpdateAndDelete",
+        "scope": "itemAndDescendants"
+      }
+    ]
+  }
+}
