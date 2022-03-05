@@ -17,21 +17,14 @@ using System.Linq;
 using Sitecore.Mvc.Extensions;
 using Mvp.Foundation.LayoutServiceExtensions.Models;
 using Sitecore.Rules.ConditionalRenderings;
-using Mvp.Foundation.LayoutServiceExtensions.Parsers;
 using Newtonsoft.Json;
-using Sitecore.Reflection;
-using System;
+using Mvp.Foundation.LayoutServiceExtensions.Repositories;
+using Sitecore.JavaScriptServices.ViewEngine.LayoutService.Serialization;
 
 namespace Mvp.Foundation.LayoutServiceExtensions.ContentsResolvers
 {
     public class PersonalizedRenderingContentsResolver : IRenderingContentsResolver
     {
-        private readonly IDictionary<string, string> parsers = new Dictionary<string, string>()
-        {
-            { "DayOfWeekCondition`1", "Mvp.Foundation.LayoutServiceExtensions.Parsers.DayOfWeekConditionParser,Mvp.Foundation.LayoutServiceExtensions" },
-            { "CurrentMonthCondition`1", "Mvp.Foundation.LayoutServiceExtensions.Parsers.MonthOfYearConditionParser,Mvp.Foundation.LayoutServiceExtensions" },
-            { "BoxeverCondition`1", "Mvp.Foundation.LayoutServiceExtensions.Parsers.BoxeverConditionParser,Mvp.Foundation.LayoutServiceExtensions" }
-        };
         public bool IncludeServerUrlInMediaUrls { get; set; } = true;
 
         public bool UseContextItem { get; set; }
@@ -104,12 +97,14 @@ namespace Mvp.Foundation.LayoutServiceExtensions.ContentsResolvers
                     // Get the type of Condition
                     var conditionType = rule.Condition.GetType();
                     object conditionResult;
-                    // Check if there is a matching parser available for the Condition type
-                    if (parsers.TryGetValue(conditionType.Name, out var parserType))
-                    {
-                        // Using reflection, create the retrieved parser
-                        var parser = ReflectionUtil.CreateObject(Type.GetType(parserType)) as BaseParser;
 
+                    // Get Parser from the repository
+                    var repository = new ParsersRepository();
+                    var parser = repository.Get(conditionType.Name);
+
+                    // Check if there is a matching parser available for the Condition type
+                    if (parser != null)
+                    {
                         // Run the parser to retrieve an object containing all the properties necessary
                         // to evaluate the rule in Rendering Host
                         conditionResult = parser.Parse(rule.Condition);
