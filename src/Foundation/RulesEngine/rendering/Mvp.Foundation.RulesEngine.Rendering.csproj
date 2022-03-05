@@ -10,6 +10,7 @@
         <DebugSymbols>true</DebugSymbols>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="moosend-api-wrapper" />
         <PackageReference Include="Sitecore.LayoutService.Client" />
         <PackageReference Include="Sitecore.AspNet.RenderingEngine" />
     </ItemGroup>

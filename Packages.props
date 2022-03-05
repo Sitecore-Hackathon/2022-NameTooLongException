@@ -37,6 +37,7 @@
         <PackageReference Update="Sitecore.AspNet.ExperienceEditor" Version="$(SitecoreAspNetVersion)" />
         <PackageReference Update="BuildWebCompiler" Version="1.12.394" />
         <PackageReference Update="Okta.AspNetCore" Version="3.5.0" />
+        <PackageReference Update="moosend-api-wrapper" Version="3.0.1.31" />
         <PackageReference Update="Microsoft.Owin.Security.OpenIdConnect" Version="4.1.0" />
         <PackageReference Update="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
         <PackageReference Update="Microsoft.AspNetCore.Session" Version="2.2.0" />
