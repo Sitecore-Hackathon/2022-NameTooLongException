@@ -151,6 +151,31 @@ Languages:
           <d
             id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
             <r
+              uid="{614EB698-E1DF-4C30-A1DC-10CCF907F36F}">
+              <rls>
+                <ruleset>
+                  <rule
+                    uid="{89142250-B61D-4D61-90FA-3E678033B519}"
+                    p:before="*"
+                    s:name="Email Subscription - Send">
+                    <conditions>
+                      <condition
+                        uid="392C90D785CC4EC991D91D34F625B5B8"
+                        s:id="{8E72C925-48BE-4200-B6BF-D5C64117C546}"
+                        s:SendEmailGroupId="b0eacdea-b833-4edb-af44-4dfb854d8ec7"
+                        s:value="b0eacdea-b833-4edb-af44-4dfb854d8ec7" />
+                    </conditions>
+                    <actions>
+                      <action
+                        uid="2774F3FBB9EF41899E1E9CF23301B173"
+                        s:id="{0F3C6BEC-E56B-4875-93D7-2846A75881D2}"
+                        s:DataSource="{FC5A4F96-06FA-49DE-BD1B-277E3CE65C6A}" />
+                    </actions>
+                  </rule>
+                </ruleset>
+              </rls>
+            </r>
+            <r
               uid="{CAB9C343-0F22-4C4A-B9FD-983D952391C3}">
               <p:d />
             </r>
@@ -175,7 +200,7 @@ Languages:
       Value: 20200513T045800Z
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "edaf96ff-e8dc-4276-a459-cd15ff68e03e"
+      Value: "8382206a-6286-47b7-9df3-90ef1bf1ed40"
     - ID: "b1ece12f-b2c9-44e6-92a3-c5dfd6514b59"
       Hint: Menu Title
       Value: Home
@@ -185,4 +210,4 @@ Languages:
         sitecore\Admin
     - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
       Hint: __Updated
-      Value: 20220305T111422Z
+      Value: 20220305T174630Z
