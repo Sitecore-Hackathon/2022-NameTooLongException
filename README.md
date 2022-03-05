@@ -48,10 +48,10 @@ To demonstrate that this works, we implemented 5 different rules:
 
 Please read the *Usage Instructions* section below to find out how to add additional rules, personalize a rendering and what the configuration in Sitecore Personalize and Sitecore Send looks like.
 
-## Video link
-⟹ Provide a video highlighing your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
+## Video link(s)
 
-⟹ [Replace this Video link](#video-link)
+⟹ [Video](https://youtu.be/MsX_R2JB8L4)
+⟹ [Long Video](https://youtu.be/2DVdjIluBnI)
 
 
 
