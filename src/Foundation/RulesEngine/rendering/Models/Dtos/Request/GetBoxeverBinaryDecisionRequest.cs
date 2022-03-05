@@ -2,7 +2,7 @@
 
 namespace Mvp.Foundation.RulesEngine.Models.Dtos.Request
 {
-    public class GetMultiVariantTestRequest
+    public class GetBoxeverBinaryDecisionRequest
     {
         [JsonProperty("browserId")]
         public string BrowserId { get; set; }

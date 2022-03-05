@@ -27,13 +27,13 @@ namespace Mvp.Foundation.RulesEngine.Rules
                 const string url = "https://api.boxever.com/v2/callFlows";
 
                 // TODO: See comments
-                var getMultiVariantTestRequest = new GetMultiVariantTestRequest
+                var getMultiVariantTestRequest = new GetBoxeverBinaryDecisionRequest
                 {
                     BrowserId = this.BoxeverID,
                     Channel = _boxeverOptions.Configuration.Channel,
                     ClientKey = _boxeverOptions.ClientKey,
                     CurrencyCode = _boxeverOptions.Configuration.CurrencyCode,
-                    FriendlyId = _boxeverOptions.Configuration.FriendlyId, //"second_api_experiment",
+                    FriendlyId = this.BoxeverTestID,
                     Language = _boxeverOptions.Configuration.Language,// TODO: Update to use context language
                     PointOfSale = _boxeverOptions.Configuration.PointOfSale// TODO: Update to use settings item
                 };
@@ -51,8 +51,8 @@ namespace Mvp.Foundation.RulesEngine.Rules
                     // Get JSON Result
                     string result = message.Content.ReadAsStringAsync().Result;
                     // Deserialize JSON .....
-                    var getMultiVariantTestResponse = JsonConvert.DeserializeObject<GetMultiVariantTestResponse>(result); // Should create BoxeverJSON object
-                    var componentVersion = getMultiVariantTestResponse.ComponentVersion;
+                    var getMultiVariantTestResponse = JsonConvert.DeserializeObject<GetBoxeverBinaryDecisionResponse>(result); // Should create BoxeverJSON object
+                    var componentVersion = getMultiVariantTestResponse.BinaryDecision;
                     // Compare contentVersion to value and return boolean
                     return componentVersion == this.Value;
                 }

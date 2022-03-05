@@ -13,7 +13,7 @@
     {
         public string Channel { get; set; }
         public string CurrencyCode { get; set; }
-        public string FriendlyId { get; set; }
+        //public string FriendlyId { get; set; }
         public string Language { get; set; }
         public string PointOfSale { get; set; }
     }
