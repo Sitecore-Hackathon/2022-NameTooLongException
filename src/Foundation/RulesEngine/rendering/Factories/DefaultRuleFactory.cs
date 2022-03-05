@@ -4,19 +4,12 @@ using Newtonsoft.Json;
 using Mvp.Foundation.RulesEngine.Rules;
 using Mvp.Foundation.RulesEngine.Utils;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace Mvp.Foundation.RulesEngine.Factories
 {
-	public class DefaultRuleFactory : IDefaultRuleFactory
+    public class DefaultRuleFactory : IDefaultRuleFactory
 	{
-		private readonly Dictionary<string, string> types = new Dictionary<string, string>()
-		{
-			{ "DayOfWeek", " Mvp.Foundation.RulesEngine.Rules.DayOfWeekRule, Mvp.Foundation.RulesEngine" },
-			{ "MonthOfYear", " Mvp.Foundation.RulesEngine.Rules.MonthOfYearRule, Mvp.Foundation.RulesEngine" },
-			{ "BoxeverTest", " Mvp.Foundation.RulesEngine.Rules.BoxeverRule, Mvp.Foundation.RulesEngine" }
-		};
-
         private Type GetGenericType(string typeName)
         {
             return ReflectionUtil.GetGenericType(typeName);
@@ -26,7 +19,8 @@ namespace Mvp.Foundation.RulesEngine.Factories
         // Added raw JSON as input for this method in order to get all the settings necessary for the Rule to execute.
 		public Rule GetRule(string id, string json, HttpContext httpContext, IConfiguration configuration)
 		{
-			if (types.TryGetValue(id, out var ruleType))
+            var types = configuration.GetSection("Rules").GetChildren().ToDictionary(x => x.Key, x => x.Value);
+            if (types.TryGetValue(id, out var ruleType))
             {
 				var type = GetGenericType(ruleType);
 				if (type == null)
