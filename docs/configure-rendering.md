@@ -1,0 +1,1 @@
+# Configure a rendering to be personalizable

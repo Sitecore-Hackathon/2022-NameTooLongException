@@ -1,0 +1,1 @@
+# Configure the demo rule in Sitecore Personalize

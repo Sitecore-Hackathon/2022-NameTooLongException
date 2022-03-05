@@ -98,11 +98,6 @@ As this is an addition to the MVP site, the changes have been added to the MVP s
    .\Stop-Environment.ps1
    ```  
 
-### Configuration
-⟹ If there are any custom configuration that has to be set manually then remember to add all details here.
-
-_Remove this subsection if your entry does not require any configuration that is not fully covered in the installation instructions already_
-
 ## Usage instructions
 Adding personalization on a page is exactly the same as what we are used to in Sitecore, no instructions needed.
 
