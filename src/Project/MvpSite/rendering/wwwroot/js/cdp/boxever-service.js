@@ -30,22 +30,20 @@ var boxeverService = {};
     };
 
     this.trackViews = function () {
-        // Place an anonymous function in the Boxever queue
-        this._boxeverq.push(function () {
-            var viewEvent = {
-                "channel": this._config.channel,
-                "type": "VIEW",
-                "language": this._config.language,
-                "currency": this._config.currency,
-                "page": window.location.pathname,
-                "pos": this._config.pos,
-                "browser_id": Boxever.getID()
-            };
-            // Invoke event create
-            // (<event msg>, <callback function>, <format>)
-            console.log(viewEvent);
-            Boxever.eventCreate(viewEvent, function (data) { }, 'json');
-        });
+        
+        var viewEvent = {
+            "channel": this._config.channel,
+            "type": "VIEW",
+            "language": this._config.language,
+            "currency": this._config.currency,
+            "page": window.location.pathname,
+            "pos": this._config.pos,
+            "browser_id": window.Boxever.getID()
+        };
+        // Invoke event create
+        // (<event msg>, <callback function>, <format>)
+        console.log(viewEvent);
+        window.Boxever.eventCreate(viewEvent, function (data) { }, 'json');
     }
 
     this.init();

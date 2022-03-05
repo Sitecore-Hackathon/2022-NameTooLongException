@@ -21,12 +21,18 @@ namespace Mvp.Foundation.RulesEngine.Rules
             //mailing list id from condition
             var mailingListId = new Guid(this.SendEmailGroupId);
             var apiKey = new Guid(_sendOptions.ApiKey);
+            //Better user case is to get email id from OKta but for now , we are getting it from cookie
+            this.Value = this._httpContext.Request.Cookies[$"mootrack_email_id"]; 
+
+
             //Sitecore Send client
             var apiClient = new Moosend.Api.Client.MoosendApiClient(apiKey);
             //Check if user is in Subscription list
             var response = apiClient.GetSubscriberByEmailAsync(mailingListId, Value);
 
-            return !string.IsNullOrEmpty(response?.Result?.Email)
+
+
+            return !string.IsNullOrEmpty(response?.Result?.Email);
         }
     }
 }
