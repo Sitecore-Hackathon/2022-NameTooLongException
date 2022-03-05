@@ -1,4 +1,4 @@
-# Configure a Sitecore Send
+# Configure Sitecore Send Rule
 Please refer to this step on creation of Sitecore Send form : https://help.moosend.com/hc/en-us/articles/4403356535954
 
 Once the form is created, please create an item in Sitecore which can then be chosen as a datasource for SendForm Component.
