@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Moosend.Api.Client.Common.Models;
 using Mvp.Foundation.RulesEngine.Options;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Mvp.Foundation.RulesEngine.Rules
 {

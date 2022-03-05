@@ -13,7 +13,7 @@ namespace Mvp.Foundation.RulesEngine.Rules
     public class BoxeverRule : Rule
     {
         private static BoxeverOptions _boxeverOptions { get; set; }
-        private string BoxeverTestID { get; set; }
+        public string BoxeverTestID { get; set; }
         private string BoxeverID { get; set; }
         public string Value { get; set; }
 

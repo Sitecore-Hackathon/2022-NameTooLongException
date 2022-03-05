@@ -39,11 +39,12 @@ By adding all variants to the item pushed to Experience Edge, we can again trigg
 
 
 
-To demonstrate that this works, we implemented 4 different rules:
+To demonstrate that this works, we implemented 5 different rules:
 1. **Day of Week;** an OOTB Sitecore rule which checks the current day of the week against a provided list
 2. **Month of Year;** an OOTB Sitecore rule which checks the current month against a provided list
 3. **Page visited;** a rule integrated with **Sitecore CDP/Personalize** which triggers an Decision Model in Personalize to see if the current visitor has visited a specific page
 4. **Form submitted;** a rule integrated with **Sitecore Send** which checks if the visitor has submitted a form (inserted from Sitecore Send) on the site
+5. **Personalize Multivariant Experiment;** a rule which triggers an Experiment in **Sitecore Personalize** whether to show the variant or not
 
 Please read the *Usage Instructions* section below to find out how to add additional rules, personalize a rendering and what the configuration in Sitecore Personalize and Sitecore Send looks like.
 

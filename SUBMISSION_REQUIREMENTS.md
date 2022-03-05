@@ -47,7 +47,7 @@ Notwithstanding the fact that value full creativity in your submission, we are g
 
 ## 📼Documentation
 The documentation requirements are extremely important. If the judges are unable to get your Hackathon project running then we can’t count it as complete. Here are items we expect to be included which must be pushed to the GitHub repo in the readme:
-- Short YouTube video (2-3 minutes) describing your project submission purpose, setup instructions, and how to use it.
+- Short YouTube video (2-30 minutes) describing your project submission purpose, setup instructions, and how to use it.
 - One to two pages of documentation describing your project submission purpose with screenshots of the finished product and installation steps with screenshots where appropriate.
 
 __Read and follow the instructions in__ [ENTRYFORM](ENTRYFORM.md)
