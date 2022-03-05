@@ -25,14 +25,14 @@ Languages:
         sitecore\Admin
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "688921a4-1210-4f37-9e35-f17f27eaa805"
+      Value: "6c5e606a-b354-4e6b-a9a1-ea52066dc83c"
     - ID: "af321234-4eb9-4ef5-9197-65903351939c"
       Hint: Text
-      Value: "where the boxever test [SendEmailGroupId,,,specific value] returns [value,,,specific value]"
+      Value: "where the Current user is Subscribed to Email group Id [SendEmailGroupId,,,specific value] returns [value,,,specific value]"
     - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
       Hint: __Updated by
       Value: |
         sitecore\Admin
     - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
       Hint: __Updated
-      Value: 20220305T144029Z
+      Value: 20220305T164928Z

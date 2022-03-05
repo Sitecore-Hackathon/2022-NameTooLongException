@@ -7,9 +7,11 @@ var boxeverService = {};
         "currency": "EUR",
         "pos": "Orientation-GvT",
         "clientKey": "pqshkqqqoklsqwue4gs09b5idg0mv1d0",
-        "domain": "demosite-rh.hackathon.localhost"
+        "domain": "mvp.sc-mvp.localhost/"
     }
-    this._boxeverq = [];
+    // Define the Boxever queue
+    var boxeverq = boxeverq || [];
+    window._boxeverq = boxeverq;
 
     ///Initialize Service
     this.init = function () {
@@ -27,25 +29,22 @@ var boxeverService = {};
             s.src = 'https://d1mj578wat5n4o.cloudfront.net/boxever-1.4.8.min.js';
             var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
         })();
+        window._boxeverq.push(function () {
+            var viewEvent = {
+                "channel": this._config.channel,
+                "type": "VIEW",
+                "language": this._config.language,
+                "currency": this._config.currency,
+                "page": window.location.pathname,
+                "pos": this._config.pos,
+                "browser_id": window.Boxever.getID()
+            };
+            // Invoke event create
+            // (<event msg>, <callback function>, <format>)
+            console.log(viewEvent);
+            window.Boxever.eventCreate(viewEvent, function (data) { }, 'json');
+        });
     };
 
-    this.trackViews = function () {
-        
-        var viewEvent = {
-            "channel": this._config.channel,
-            "type": "VIEW",
-            "language": this._config.language,
-            "currency": this._config.currency,
-            "page": window.location.pathname,
-            "pos": this._config.pos,
-            "browser_id": window.Boxever.getID()
-        };
-        // Invoke event create
-        // (<event msg>, <callback function>, <format>)
-        console.log(viewEvent);
-        window.Boxever.eventCreate(viewEvent, function (data) { }, 'json');
-    }
-
     this.init();
-    this.trackViews();
 }).apply(boxeverService);
