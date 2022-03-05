@@ -86,6 +86,65 @@ Languages:
           <d
             id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
             <r
+              uid="{614EB698-E1DF-4C30-A1DC-10CCF907F36F}">
+              <rls>
+                <ruleset>
+                  <rule
+                    uid="{8F36230E-9E05-44F7-920C-996EFAAE22B8}"
+                    s:name="Boxever Variation">
+                    <actions>
+                      <action
+                        uid="048EEF88B3CD4739ACFEDCA99BFBE2B0"
+                        s:id="{0F3C6BEC-E56B-4875-93D7-2846A75881D2}"
+                        s:DataSource="{10D1BA92-777E-4123-9AA0-274CCADD4F79}" />
+                    </actions>
+                  </rule>
+                  <rule
+                    uid="{C9A31421-8EC8-4E67-8E45-98291EFFC845}"
+                    s:name="Month of Year">
+                    <conditions>
+                      <condition
+                        uid="01F09F62C645430595E39B8AF3BEB9DB"
+                        s:id="{F27973B0-4439-48F6-AC06-ED2C2F31AC61}"
+                        s:Month="{3F770C25-87E2-4C93-B75D-5BE1C3EE812F}" />
+                    </conditions>
+                    <actions>
+                      <action
+                        uid="1A15B32503FC44369D953E69A8464463"
+                        s:id="{0F3C6BEC-E56B-4875-93D7-2846A75881D2}"
+                        s:DataSource="{BC0B8E49-A7E9-4A7E-87AD-D5AE9910D227}" />
+                    </actions>
+                  </rule>
+                  <rule
+                    uid="{2C4849F0-17D9-4B58-86DC-B0274F7FC1B5}"
+                    s:name="Day of Week">
+                    <conditions>
+                      <condition
+                        uid="AAAD929CF65E486DA8C565FF8D4F5333"
+                        s:id="{C18B0900-ED61-47A8-AEF0-AD6D133512C8}"
+                        s:DaysList="{B45FD42E-FBDC-4460-A179-DB0B5D22A3EA}|{04CC0FD2-C5DE-4F7C-B263-B1C88BABA6CD}" />
+                    </conditions>
+                    <actions>
+                      <action
+                        uid="91BE94B652044917B6FDF64A572CD7A0"
+                        s:id="{0F3C6BEC-E56B-4875-93D7-2846A75881D2}"
+                        s:DataSource="{CDFA20F7-4694-4F87-85F5-23ACA209B49A}" />
+                    </actions>
+                  </rule>
+                  <rule
+                    uid="{00000000-0000-0000-0000-000000000000}"
+                    s:name="Default">
+                    <conditions>
+                      <condition
+                        uid="A3C395C4119B4FDDA7330AAA4426D4F6"
+                        s:id="{4888ABBB-F17D-4485-B14B-842413F88732}" />
+                    </conditions>
+                    <actions />
+                  </rule>
+                </ruleset>
+              </rls>
+            </r>
+            <r
               uid="{CAB9C343-0F22-4C4A-B9FD-983D952391C3}">
               <p:d />
             </r>
@@ -110,7 +169,7 @@ Languages:
       Value: 20200513T045800Z
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "e6256935-2503-4567-8d22-3dffe84d3411"
+      Value: "3021bab5-d175-45cb-a3a3-e424f4cb06f2"
     - ID: "b1ece12f-b2c9-44e6-92a3-c5dfd6514b59"
       Hint: Menu Title
       Value: Home
@@ -120,4 +179,4 @@ Languages:
         sitecore\Admin
     - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
       Hint: __Updated
-      Value: 20211020T050814Z
+      Value: 20220305T032658Z
