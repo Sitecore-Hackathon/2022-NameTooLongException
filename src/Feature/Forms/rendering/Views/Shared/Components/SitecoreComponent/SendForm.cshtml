@@ -3,8 +3,5 @@
 @*NAMETOOLONGEXCEPTION--CUSTOM CODE created to load Sitecore Send Form*@
 <section class="form background-white">
     <!-- Subcribe-to-Get-Discount Form -->
-    <div data-mooform-id="@Model.FormID" ></div>
-    <script type="text/javascript">
-        mootrack('loadForm', '@(Model.FormID)');
-     </script>
+    <div data-mooform-id="@Model.FormID?.Value" ></div>
 </section>

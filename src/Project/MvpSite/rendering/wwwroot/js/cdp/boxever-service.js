@@ -9,11 +9,12 @@ var boxeverService = {};
         "clientKey": "pqshkqqqoklsqwue4gs09b5idg0mv1d0",
         "domain": "demosite-rh.hackathon.localhost"
     }
+    this._boxeverq = [];
 
     ///Initialize Service
     this.init = function () {
         // Define the Boxever queue
-        var _boxeverq = _boxeverq || [];
+        
         // Define the Boxever settings
         _boxever_settings = {
             client_key: this._config.clientKey, // Replace with your client key
@@ -30,7 +31,7 @@ var boxeverService = {};
 
     this.trackViews = function () {
         // Place an anonymous function in the Boxever queue
-        _boxeverq.push(function () {
+        this._boxeverq.push(function () {
             var viewEvent = {
                 "channel": this._config.channel,
                 "type": "VIEW",

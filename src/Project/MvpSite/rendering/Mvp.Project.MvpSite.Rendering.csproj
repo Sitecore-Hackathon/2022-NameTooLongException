@@ -54,6 +54,7 @@
 	<ItemGroup>
 	  <Folder Include="Includes\Styles\" />
 	  <Folder Include="Includes\Scripts\" />
+	  <Folder Include="Properties\PublishProfiles\" />
 	</ItemGroup>
 
 </Project>
