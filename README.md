@@ -108,4 +108,33 @@ Please read the following instructions if you want to:
 - [Configure the demo rule in Sitecore Send](docs/configure-send.md)
 
 ## Comments
-If you'd like to make additional comments that is important for your module entry.
+
+### How does it work?
+Below are some notes describing how this solution works. There are two parts to it, first changes on the Sitecore/Layout Service side and secondly the changes to the Rendering Engine.
+
+#### Sitecore changes
+1. Override the renderingContentsResolver
+    1. If the rendering has personalization rules (and not running in EE), then trigger custom code instead of original.
+    2. Get the raw RenderingXml from the rendering, this contains all the options set on the rendering
+    3. Convert it in a RenderingReference, a typed version of the XML
+    4. Loop through all the Rules (Variants) and create JObjects from it including the contents of the selected datasource for this variant
+    5. Return a JArray with all the variants found
+2. Override the ResolveRenderingContents processor in the renderJsonRendering pipeline (this pipeline is triggered for each rendering on a page)
+    1. If the rendering passing through this pipeline contains personalization rules, add a "HasPersonalizationRules" setting to the RenderingParams for later usage
+3. Override the IPlaceholderTransformer; this is where the final structure of result JSON is created for a rendering
+    1. If the RenderingParams contains the "HasPersonalizationRules" option then set the contents as a variants property instead of fields
+
+#### Rendering Engine changes
+1. Sitecore please fix your code to be extendable..
+2. Skipping to the part which really matters..
+3. Create a custom PlaceHolderJsonConverter
+    1. When the JItem contains variants, then deserialize to a custom object 'PersonalizedComponent' instead of the OOTB Component model
+    2. This PersonalizedComponent object contains all conditions as typed objects while using the Component model as base for the regular content
+    3. In a custom LayoutServiceSerializer start using a custom JsonSerializerSettingsExtensions to include this new CustomPlaceHolderJsonConverter to the serialize configuration instead of the regular one
+4. Create a custom version of the RenderingEngineMiddleware
+    1. After getting the deserialized Layout Service response, loop through all the found placeholders and renderings.
+    2. If the rendering is of type PersonalizedComponent, then execute custom logic to parse it
+        1. Transform the PersonalizedComponent into a executable Rule, using a RuleFactory
+        2. Execute the Rule, if it returns true then that variant should be used
+        3. Get the fields from the variant and set it on the regular Component fields property
+From there it is business as usual. Components don't know what happened, for those parts of the code it is just processing regular Placeholders and Components and don't know anything about Conditions, Rules, Variants or PersonalizedComponents.
