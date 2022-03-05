@@ -11,6 +11,14 @@
                 "path": "/sitecore/system/Settings/Rules/Definitions/Elements/Boxever"
             },
             {
+                "name": "send tags",
+                "path": "/sitecore/system/Settings/Rules/Definitions/Tags/Send"
+            },
+            {
+                "name": "send elements",
+                "path": "/sitecore/system/Settings/Rules/Definitions/Elements/Send"
+            },
+            {
                 "name": "conditional renderings",
                 "path": "/sitecore/system/Settings/Rules/Conditional Renderings"
             }
