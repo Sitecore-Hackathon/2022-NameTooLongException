@@ -45,6 +45,8 @@
 		<ProjectReference Include="..\..\..\Feature\Forms\rendering\MVP.Feature.Forms.Rendering.csproj" />
 		<ProjectReference Include="..\..\..\Feature\Navigation\rendering\Mvp.Feature.Navigation.Rendering.csproj" />
 		<ProjectReference Include="..\..\..\Feature\Social\rendering\Mvp.Feature.Social.Rendering.csproj" />
+		<ProjectReference Include="..\..\..\Foundation\LayoutServiceExtensions\rendering\Mvp.Foundation.LayoutServiceExtensions.Rendering.csproj" />
+		<ProjectReference Include="..\..\..\Foundation\RulesEngine\rendering\Mvp.Foundation.RulesEngine.Rendering.csproj" />
 		<ProjectReference Include="..\..\..\Foundation\User\rendering\Mvp.Foundation.User.Rendering.csproj" />
 		<ProjectReference Include="..\..\..\Foundation\People\rendering\Mvp.Foundation.People.Rendering.csproj" />
 	</ItemGroup>

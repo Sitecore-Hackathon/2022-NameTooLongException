@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Mvp.Foundation.LayoutServiceExtensions.Filters;
 using Mvp.Project.MvpSite.Models;
 using Sitecore.AspNet.RenderingEngine;
 using Sitecore.AspNet.RenderingEngine.Filters;
@@ -20,7 +21,7 @@ namespace Mvp.Project.MvpSite.Controllers
         // Inject Sitecore rendering middleware for this controller action
         // (enables model binding to Sitecore objects such as Route,
         // and causes requests to the Sitecore Layout Service for controller actions)
-        [UseSitecoreRendering]
+        [UsePersonalizedSitecoreRendering]
         public IActionResult Index(Route route)
         {
             var request = HttpContext.GetSitecoreRenderingContext();

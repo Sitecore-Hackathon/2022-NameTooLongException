@@ -12,7 +12,9 @@ using Mvp.Feature.BasicContent.Extensions;
 using Mvp.Feature.Forms.Extensions;
 using Mvp.Feature.Navigation.Extensions;
 using Mvp.Feature.Social.Extensions;
+using Mvp.Foundation.LayoutServiceExtensions.Extentions;
 using Mvp.Foundation.People.Extensions;
+using Mvp.Foundation.RulesEngine.Extensions;
 using Mvp.Foundation.User.Extensions;
 using Mvp.Project.MvpSite.Configuration;
 using Sitecore.AspNet.ExperienceEditor;
@@ -54,8 +56,9 @@ namespace Mvp.Project.MvpSite.Rendering
         // At this time the Layout Service Client requires Json.NET due to limitations in System.Text.Json.
         .AddNewtonsoftJson(o => o.SerializerSettings.SetDefaults());
 
-      // Register the Sitecore Layout Service Client, which will be invoked by the Sitecore Rendering Engine.
-      services.AddSitecoreLayoutService()
+        // Register the Sitecore Layout Service Client, which will be invoked by the Sitecore Rendering Engine.
+        //NAMETOOLONGEXCEPTION--CUSTOM CODE
+        services.AddSitecoreLayoutServiceWithPersonalizedComponent()
         // Set default parameters for the Layout Service Client from our bound configuration object.
         .WithDefaultRequestOptions(request =>
         {
@@ -112,6 +115,7 @@ namespace Mvp.Project.MvpSite.Rendering
       services.AddSession();
 
       //NAMETOOLONGEXCEPTION--CUSTOM CODE
+      services.AddFoundationRulesEngine();
       services.AddHttpContextAccessor();
       //NAMETOOLONGEXCEPTION--CUSTOM CODE
     }
