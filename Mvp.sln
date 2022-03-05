@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31911.196
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".SolutionItems", ".SolutionItems", "{FE951C1D-8EC7-419E-A7A2-A0175125BCBB}"
 	ProjectSection(SolutionItems) = preProject
@@ -235,6 +235,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvp.Project.Sugcon.Platform
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvp.Project.Sugcon.Rendering", "src\Project\Sugcon\rendering\Mvp.Project.Sugcon.Rendering.csproj", "{72CECEF1-DA07-487B-A1C4-9D4EA8BAA206}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LayoutServiceExtensions", "LayoutServiceExtensions", "{3D0698B1-1484-4446-8F15-9AF8A66B83A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvp.Foundation.LayoutServiceExtensions.Platform", "src\Foundation\LayoutServiceExtensions\platform\Mvp.Foundation.LayoutServiceExtensions.Platform.csproj", "{B5A908E2-E524-4E5D-BE20-63504DA11923}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvp.Foundation.LayoutServiceExtensions.Rendering", "src\Foundation\LayoutServiceExtensions\rendering\Mvp.Foundation.LayoutServiceExtensions.Rendering.csproj", "{164F5E9F-5E91-456B-88B9-9B72A42959F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RuleEngine", "RuleEngine", "{C1B3E5D7-9DA6-49B8-8ACC-03AC4390DE76}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvp.Foundation.RulesEngine.Rendering", "src\Foundation\RulesEngine\rendering\Mvp.Foundation.RulesEngine.Rendering.csproj", "{89C5B3F2-3D51-4DEC-98B7-85DB688C43E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -329,6 +339,18 @@ Global
 		{72CECEF1-DA07-487B-A1C4-9D4EA8BAA206}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72CECEF1-DA07-487B-A1C4-9D4EA8BAA206}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72CECEF1-DA07-487B-A1C4-9D4EA8BAA206}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5A908E2-E524-4E5D-BE20-63504DA11923}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5A908E2-E524-4E5D-BE20-63504DA11923}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5A908E2-E524-4E5D-BE20-63504DA11923}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5A908E2-E524-4E5D-BE20-63504DA11923}.Release|Any CPU.Build.0 = Release|Any CPU
+		{164F5E9F-5E91-456B-88B9-9B72A42959F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{164F5E9F-5E91-456B-88B9-9B72A42959F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{164F5E9F-5E91-456B-88B9-9B72A42959F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{164F5E9F-5E91-456B-88B9-9B72A42959F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89C5B3F2-3D51-4DEC-98B7-85DB688C43E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89C5B3F2-3D51-4DEC-98B7-85DB688C43E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89C5B3F2-3D51-4DEC-98B7-85DB688C43E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89C5B3F2-3D51-4DEC-98B7-85DB688C43E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -384,6 +406,11 @@ Global
 		{AA548973-F076-4C7F-9DE6-4A288212EE4E} = {94C82DDA-FE0D-4EBF-AEAA-81E13CB07FE5}
 		{66B58C57-CDEC-4E95-BB53-ED49E75DE640} = {AA548973-F076-4C7F-9DE6-4A288212EE4E}
 		{72CECEF1-DA07-487B-A1C4-9D4EA8BAA206} = {AA548973-F076-4C7F-9DE6-4A288212EE4E}
+		{3D0698B1-1484-4446-8F15-9AF8A66B83A1} = {324D4FE7-86EF-43A2-A466-21198CB856AD}
+		{B5A908E2-E524-4E5D-BE20-63504DA11923} = {3D0698B1-1484-4446-8F15-9AF8A66B83A1}
+		{164F5E9F-5E91-456B-88B9-9B72A42959F5} = {3D0698B1-1484-4446-8F15-9AF8A66B83A1}
+		{C1B3E5D7-9DA6-49B8-8ACC-03AC4390DE76} = {324D4FE7-86EF-43A2-A466-21198CB856AD}
+		{89C5B3F2-3D51-4DEC-98B7-85DB688C43E5} = {C1B3E5D7-9DA6-49B8-8ACC-03AC4390DE76}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F3377439-FD7A-4F3E-8011-06175E0E3100}
