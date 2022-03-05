@@ -1,17 +1,51 @@
-# 🥇 Sitecore MVP Program Site
+![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
+# Sitecore Hackathon 2022
 
-This repository for the [Sitecore MVP site](https://mvp.sitecore.com). It is built using Sitecore 10.2.
+- MUST READ: **[Submission requirements](SUBMISSION_REQUIREMENTS.md)**
+- [Entry form template](ENTRYFORM.md)
+- [Starter kit instructions](STARTERKIT_INSTRUCTIONS.md)
 
-# 💗 Contributions
+## Team name
+NameTooLongException
 
-The Sitecore MVP site is an Open Source project and as such we welcome community contributions, though Sitecore has a _"No commitment"_ approach to this repository.  Please read the [Code of Conduct](./CODE_OF_CONDUCT.md) and [Contribution Guide](./CONTRIBUTING.md) before participating
+## Category
+Best addition to the Sitecore MVP site
 
-# ✋ PreRequisites
+## Description
+Our addition to the MVP site is client-side personalization based on configuration contributed in Sitecore.
+We all know the Sitecore personalization engine might be a bit slow from time to time. If your frontend is relying on a direct connection to the Layout Service, you will still notice this performance impact when personalization is used heavily in the site. Sitecore performs best when everything can be cached, which simply can't be done when a component/page is personalized.
+[Traditional Personalization](docs/images/personalization-normal.png?raw=true "Traditional Personalization")
+To mitigate this, we moved the personalization engine to the 'client-side'. Instead of Sitecore evaluating all the conditions and returning the correct variant of a rendering, we want to return all variants as part of the JSON response from the Layout Service. This way we can make Sitecore always cache the JSON response, even when personalization has been applied.
+[Client-side Personalization](docs/images/personalization-clientside.png?raw=true "Client-side Personalization")
+Within the Rendering Host we then evaluate all the variants (if applicable) and only return one of the variants to the parts of the Rendering Engine which actually render the components. The components themselves don't know anything about what happened, they just receive a single object with content to display.
+
+Next to the fact that this brings performance improvements to the Sitecore platform, this setup will also make personalization possible when using Experience Edge. Normally, when using Experience Edge, Sitecore is only able to push items to Experience Edge which are then stored and served when requested. When the frontend application requests a page from Experience Edge, there is no callback happening to Sitecore to evaluate any kind of personalization rules.
+By adding all variants to the item pushed to Experience Edge, we can again trigger personalization rules to be evaluated in the frontend application instead. This way it is possible to use personalization when using Experience Edge!
+[Experience Edge Personalization](docs/images/personalization-edge.png?raw=true "Experience Edge Personalization")
+
+To demonstrate that this works, we implemented 4 different rules:
+1. Day of Week; an OOTB Sitecore rule which checks the current day of the week against a provided list
+2. Month of Year; an OOTB Sitecore rule which checks the current month against a provided list
+3. Page visited; a rule integrated with Sitecore CDP/Personalize which triggers an Decision Model in Personalize to see if the current visitor has visited a specific page
+4. Form submitted; a rule integrated with Sitecore Send which checks if the visitor has submitted a form (inserted from Sitecore Send) on the site
+
+## Video link
+⟹ Provide a video highlighing your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
+
+⟹ [Replace this Video link](#video-link)
+
+
+
+## Pre-requisites and Dependencies
+As this is an addition to the MVP site, the changes have been added to the MVP solution. This means the pre-requisites are exactly the same as used in the MVP site today.
+
 - [.NET Core (>= v 3.1) and .NET Framework 4.8](https://dotnet.microsoft.com/download)
 - Approx 40gb HD space
 - [Okta Developer Account](https://developer.okta.com/signup/)
 - Valid Sitecore license
-# 💻 Initial Setup
+
+## Installation instructions
+As this is an addition to the MVP site, the changes have been added to the MVP solution. This means the installation process is exactly the same as used in the MVP site today.
 
 1. 🏃‍♂️ Run the Start-Environment script from an _elevated_ PowerShell terminal 
 
@@ -47,20 +81,25 @@ The Sitecore MVP site is an Open Source project and as such we welcome community
    .\Stop-Environment.ps1
    ```  
 
-### 🎭 Site switches
+### Configuration
+⟹ If there are any custom configuration that has to be set manually then remember to add all details here.
 
-If you only want to start either the MVP or the SUGCON rendering container(s), you can use one of the following switch args  
-* `-StartSugconSites` 
-* `-StartMvpSite`  
+_Remove this subsection if your entry does not require any configuration that is not fully covered in the installation instructions already_
 
-If none of these are passed to the script all rendering containers are started.
+## Usage instructions
+⟹ Provide documentation about your module, how do the users use your module, where are things located, what do the icons mean, are there any secret shortcuts etc.
 
-_Example:_
+Include screenshots where necessary. You can add images to the `./images` folder and then link to them from your documentation:
 
-```ps1
-.\Start-Environment -StartSugconSites
-```  
+![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
 
-## ⚠️ Troubleshooting
+You can embed images of different formats too:
 
-If have issues running the site locally, please refer to the [Troubleshooting page](https://github.com/Sitecore/MVP-Site/wiki/Troubleshooting) on the wiki before opening an issue.
+![Deal With It](docs/images/deal-with-it.gif?raw=true "Deal With It")
+
+And you can embed external images too:
+
+![Random](https://thiscatdoesnotexist.com/)
+
+## Comments
+If you'd like to make additional comments that is important for your module entry.
