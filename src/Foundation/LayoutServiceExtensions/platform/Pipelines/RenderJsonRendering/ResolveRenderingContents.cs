@@ -1,6 +1,7 @@
 ﻿using Sitecore.Diagnostics;
 using Sitecore.LayoutService.Presentation.Pipelines.RenderJsonRendering;
 using Sitecore.LayoutService.Configuration;
+using Mvp.Foundation.LayoutServiceExtensions.ContentsResolvers;
 
 namespace Mvp.Foundation.LayoutServiceExtensions.Pipelines.RenderJsonRendering
 {
@@ -16,7 +17,7 @@ namespace Mvp.Foundation.LayoutServiceExtensions.Pipelines.RenderJsonRendering
             Assert.ArgumentNotNull((object)args, nameof(args));
             Assert.IsNotNull((object)args.Result, "args.Result cannot be null");
             args.Result.Contents = this.GetResolvedContents(args);
-            if (args.Result.Contents != null && args.Rendering.Properties.Contains("PersonlizationRules") && !Sitecore.Context.PageMode.IsExperienceEditorEditing)
+            if (args.Result.Contents != null && args.Rendering.Properties.Contains("PersonlizationRules") && Sitecore.Context.PageMode.IsNormal && args.RenderingContentsResolver is PersonalizedRenderingContentsResolver)
                 args.Result.RenderingParams.Add("HasPersonalizationRules", "1");
         }
 

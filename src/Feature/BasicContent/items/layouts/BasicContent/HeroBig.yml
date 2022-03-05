@@ -15,7 +15,7 @@ SharedFields:
   Value: /sitecore/templates/Feature/BasicContent/Hero
 - ID: "b0b15510-b138-470e-8f33-8da2e228aafe"
   Hint: Rendering Contents Resolver
-  Value: 
+  Value: "{C40593BD-58A3-4217-B7CA-B73657CFBBB5}"
 - ID: "b5b27af1-25ef-405c-87ce-369b3a004016"
   Hint: Datasource Location
   Value: "./Page Components|query:./ancestor-or-self::*[@@templatename='Site']/Shared Content"
@@ -34,11 +34,11 @@ Languages:
       Value: 20200625T081003Z
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "c3fb74b4-b702-4fac-89ed-2ed025ca387f"
+      Value: "20a34bee-26af-4140-b0ab-b8bae51b3c63"
     - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
       Hint: __Updated by
       Value: |
         sitecore\Admin
     - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
       Hint: __Updated
-      Value: 20220305T080953Z
+      Value: 20220305T083135Z

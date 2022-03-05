@@ -24,7 +24,7 @@ using System;
 
 namespace Mvp.Foundation.LayoutServiceExtensions.ContentsResolvers
 {
-    public class CustomRenderingContentsResolver : IRenderingContentsResolver
+    public class PersonalizedRenderingContentsResolver : IRenderingContentsResolver
     {
         private readonly IDictionary<string, string> parsers = new Dictionary<string, string>()
         {
