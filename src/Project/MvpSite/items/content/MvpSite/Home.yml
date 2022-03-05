@@ -45,7 +45,7 @@ SharedFields:
           <rls>
             <ruleset>
               <rule
-                name="Variant C"
+                name="Viewed the Mentor Page"
                 uid="{2DF0F249-1B4B-44C2-89D2-0BF271107B6F}">
                 <conditions>
                   <condition
@@ -62,23 +62,7 @@ SharedFields:
                 </actions>
               </rule>
               <rule
-                name="Variant B"
-                uid="{3FD2C8BF-9D23-4FDC-9707-11EBC037A673}">
-                <conditions>
-                  <condition
-                    id="{F27973B0-4439-48F6-AC06-ED2C2F31AC61}"
-                    uid="3F32C9884F0C40139EDFF56B6BE4CC21"
-                    Month="{24A6641F-A9EE-42FE-A3E7-D9D81EC1A803}" />
-                </conditions>
-                <actions>
-                  <action
-                    id="{0F3C6BEC-E56B-4875-93D7-2846A75881D2}"
-                    uid="85ECF734257B4ADFBD3AA90AE5A06230"
-                    DataSource="{BC0B8E49-A7E9-4A7E-87AD-D5AE9910D227}" />
-                </actions>
-              </rule>
-              <rule
-                name="Variant A"
+                name="Weekend"
                 uid="{145389B3-A24F-446A-B35B-B510D8735697}">
                 <conditions>
                   <condition
@@ -174,7 +158,7 @@ Languages:
       Value: 20200513T045800Z
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "e3e2f5f1-3049-4608-a0d5-4607b7114bd0"
+      Value: "562ea474-a68f-48e2-a067-192c957b33d7"
     - ID: "b1ece12f-b2c9-44e6-92a3-c5dfd6514b59"
       Hint: Menu Title
       Value: Home
@@ -184,4 +168,4 @@ Languages:
         sitecore\Admin
     - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
       Hint: __Updated
-      Value: 20220305T074209Z
+      Value: 20220305T110022Z

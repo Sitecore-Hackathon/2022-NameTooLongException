@@ -1,0 +1,61 @@
+﻿---
+ID: "a489cedd-e92a-406a-afc1-3739e010b13f"
+Parent: "156e52f0-4626-486a-b638-5cdba3121f13"
+Template: "64ad1284-23fb-4b76-85b3-c6dfb1b322bf"
+Path: "/sitecore/content/MvpSite/Home/Mentor-Program/Page Components/Rich Text Content"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "001dd393-96c5-490b-924a-b0f25cd9efd8"
+      Hint: __Lock
+      Value: <r />
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20220305T104830Z
+    - ID: "5098b799-31dd-4c1b-9955-3e8598caa21f"
+      Hint: Content
+      Value: |
+        <h2>Benefits of being a mentor&nbsp;</h2>
+        <ul>
+            <li>Gain new leadership and communication skills</li>
+            <li>Receive support from the Sitecore team and other mentors</li>
+            <li>Contribution will be counted towards the MVP application</li>
+            <li>Networking opportunities</li>
+        </ul>
+        <h2>Benefits of being a mentee</h2>
+        <ul>
+            <li>Learn from an experienced Sitecore MVP</li>
+            <li>Increase your chances of becoming a Sitecore MVP</li>
+            <li>Receive support and guidance from your mentor throughout the year</li>
+            <li>Networking opportunities</li>
+        </ul>
+        <h2>Mentor&rsquo;s responsibilities</h2>
+        <ul>
+            <li>Mentors need to be willing to mentor 1 or 2 mentees</li>
+            <li>Commitment to spending a couple hours a month mentoring</li>
+            <li>Willingness to participate in the Mentor Network which includes monthly calls</li>
+            <li>Eagerness to share their success stories with the whole community</li>
+        </ul>
+        <h2>How to apply</h2>
+        <p>To apply to the Sitecore MVP mentorship program as a mentor or mentee please send the Sitecore team an email at <a href="mailto:mvp-program@sitecore.com?subject=Mentor%20Program">mvp-program@sitecore.com</a></p>
+        <p><em>Please note that if you are applying as a mentor you must be a Sitecore 2022 MVP.</em></p>
+    - ID: "52807595-0f8f-4b20-8d2a-cb71d28c6103"
+      Hint: __Owner
+      Value: |
+        sitecore\Admin
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "da885b30-c435-4900-a328-af0b5bc8fa1f"
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\Admin
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20220305T105257Z

@@ -1,0 +1,62 @@
+﻿---
+ID: "b5e6bcb6-deea-41b4-b462-b89bcc9d2617"
+Parent: "94de9ac3-a9f7-40ab-ae90-acda364b9c40"
+Template: "a054184c-3b20-4c2b-ab04-c8a03acd5522"
+Path: "/sitecore/content/MvpSite/Home/Mentor-Program"
+BranchID: "ef8dd6f4-1bb8-4831-a1a6-defa3594051a"
+SharedFields:
+- ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
+  Hint: __Originator
+  Value: "{9AC6DDA3-8785-4C63-A2AB-457D8CC56D19}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "001dd393-96c5-490b-924a-b0f25cd9efd8"
+      Hint: __Lock
+      Value: <r />
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{17C6C4B0-6E51-45F5-8819-E89E3B91982B}"
+              p:before="*"
+              s:ds="{56ACBD7E-1B6A-4D5F-A76C-0DB37A007824}"
+              s:id="{248BDE7D-D010-4D02-95E8-2578A03A2D2D}"
+              s:ph="main" />
+            <r
+              uid="{F0FE2670-C5D1-4F9C-AC28-EC17FF7441D5}"
+              p:after="r[@uid='{17C6C4B0-6E51-45F5-8819-E89E3B91982B}']"
+              s:id="{DF26CA0D-A60B-4349-8908-E7A62F7E7272}"
+              s:ph="main" />
+            <r
+              uid="{09FE556D-D089-46C5-A11D-41034EB646E0}"
+              p:after="*[1=2]"
+              s:ds="{A489CEDD-E92A-406A-AFC1-3739E010B13F}"
+              s:id="{AA449EA4-0695-4D4C-9CD3-E582738A355E}"
+              s:par=""
+              s:ph="/main/page-overview-panel-{F0FE2670-C5D1-4F9C-AC28-EC17FF7441D5}-0"
+              s:ccb="Clear on publish" />
+          </d>
+        </r>
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20220305T104123Z
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "e2cc4d2f-823f-45a1-b084-18761fa9d530"
+    - ID: "b1ece12f-b2c9-44e6-92a3-c5dfd6514b59"
+      Hint: Menu Title
+      Value: Mentor Program
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\Admin
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20220305T105152Z
