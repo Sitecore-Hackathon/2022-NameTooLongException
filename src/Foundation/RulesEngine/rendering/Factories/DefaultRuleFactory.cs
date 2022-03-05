@@ -8,10 +8,6 @@ using System.Collections.Generic;
 
 namespace Mvp.Foundation.RulesEngine.Factories
 {
-	
-    /// 1. Get Rule Object based on ID (from a dictionary or something) -> https://stackoverflow.com/questions/52407867/how-to-initialize-a-dictionary-type-during-dependency-injection
-	/// 2. Rule Type should be based on an abstract with an execute function
-	/// 3. Execute the Rule, which should return true or false
 	public class DefaultRuleFactory : IDefaultRuleFactory
 	{
 		private readonly Dictionary<string, string> types = new Dictionary<string, string>()
@@ -21,25 +17,24 @@ namespace Mvp.Foundation.RulesEngine.Factories
 			{ "BoxeverTest", " Mvp.Foundation.RulesEngine.Rules.BoxeverRule, Mvp.Foundation.RulesEngine" }
 		};
 
-        private Type GetGenericType<T>(string typeName)
+        private Type GetGenericType(string typeName)
         {
-            return ReflectionUtil.GetGenericType<T>(typeName);
+            return ReflectionUtil.GetGenericType(typeName);
         }
 
-		public Rule GetRule(string id, string json, HttpContext httpContext, IConfiguration configration)
+        // Based on the Rule ID, get the type from configuration and create an instance of it.
+        // Added raw JSON as input for this method in order to get all the settings necessary for the Rule to execute.
+		public Rule GetRule(string id, string json, HttpContext httpContext, IConfiguration configuration)
 		{
 			if (types.TryGetValue(id, out var ruleType))
             {
-				var type = GetGenericType<Rule>(ruleType);
+				var type = GetGenericType(ruleType);
 				if (type == null)
 					return null;
 				var rule = JsonConvert.DeserializeObject(json, type) as Rule;
 				rule._httpContext = httpContext;
-				rule._configuration = configration;
+				rule._configuration = configuration;
 				return rule;
-
-				//var result = ReflectionUtil.CreateObject(type) as Rule;
-				//return result;
 			}
 			return null;
         }

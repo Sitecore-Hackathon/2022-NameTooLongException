@@ -55,35 +55,34 @@ namespace Mvp.Foundation.LayoutServiceExtensions.ContentsResolvers
 
         private object ResolveSimpleContents(Sitecore.Mvc.Presentation.Rendering rendering, IRenderingConfiguration renderingConfig)
         {
-            Item contextItem = this.GetContextItem(rendering, renderingConfig);
+            Item contextItem = GetContextItem(rendering, renderingConfig);
             if (contextItem == null)
-                return (object)null;
+                return null;
             if (string.IsNullOrWhiteSpace(this.ItemSelectorQuery))
-                return (object)this.ProcessItem(contextItem, rendering, renderingConfig);
+                return ProcessItem(contextItem, rendering, renderingConfig);
             JObject jobject = new JObject()
             {
-                ["items"] = (JToken)new JArray()
+                ["items"] = new JArray()
             };
-            IEnumerable<Item> items = this.GetItems(contextItem);
-            List<Item> objList = items != null ? items.ToList<Item>() : (List<Item>)null;
+            IEnumerable<Item> items = GetItems(contextItem);
+            List<Item> objList = items?.ToList();
             if (objList == null || objList.Count == 0)
-                return (object)jobject;
-            jobject["items"] = (JToken)this.ProcessItems((IEnumerable<Item>)objList, rendering, renderingConfig);
-            return (object)jobject;
+                return jobject;
+            jobject["items"] = ProcessItems(objList, rendering, renderingConfig);
+            return jobject;
         }
 
         private object ResolvePersonalizedContents(Sitecore.Mvc.Presentation.Rendering rendering, IRenderingConfiguration renderingConfig)
         {
             string property = rendering.Properties["RenderingXml"];
-            //RenderingRefernce contains all settings about a personalization configuration
+            //RenderingReference contains all settings about a personalization configuration
             var reference = string.IsNullOrEmpty(property) ? null : new RenderingReference(XElement.Parse(property).ToXmlNode(), rendering.Item.Language, rendering.Item.Database);
 
-            if (reference == null)
+            //If rendering does not contain any rules, revert back to default functionality
+            if (reference == null || reference.Settings.Rules.Count <= 1)
                 return ResolveSimpleContents(rendering, renderingConfig);
 
-            if (reference.Settings.Rules.Count <= 1)
-                return ResolveSimpleContents(rendering, renderingConfig);
-
+            //Loop through all Rules configured to build a Variant object for each
             var variants = new JArray();
             foreach(var rule in reference.Settings.Rules.Rules)
             {
@@ -100,28 +99,29 @@ namespace Mvp.Foundation.LayoutServiceExtensions.ContentsResolvers
 
                     variants.Add(JObject.Parse(JsonConvert.SerializeObject(variant)));
                 }
-                else if (rule.Actions.Any() && rule.Condition != null)
+                else if (rule.Actions.Any() && rule.Condition != null && rule.Actions.FirstOrDefault(a => a is SetDataSourceAction<ConditionalRenderingsRuleContext>) is SetDataSourceAction<ConditionalRenderingsRuleContext> action)
                 {
-                    // Check if the action is of type SetDataSourceAction (the only one we support right now)
-                    var action = rule.Actions.FirstOrDefault(a => a is SetDataSourceAction<ConditionalRenderingsRuleContext>) as SetDataSourceAction<ConditionalRenderingsRuleContext>;
-                    if (action != null)
+                    // Get the type of Condition
+                    var conditionType = rule.Condition.GetType();
+                    object conditionResult;
+                    // Check if there is a matching parser available for the Condition type
+                    if (parsers.TryGetValue(conditionType.Name, out var parserType))
                     {
-                        var conditionType = rule.Condition.GetType();
-                        object conditionResult;
-                        if (parsers.TryGetValue(conditionType.Name, out var parserType))
+                        // Using reflection, create the retrieved parser
+                        var parser = ReflectionUtil.CreateObject(Type.GetType(parserType)) as BaseParser;
+
+                        // Run the parser to retrieve an object containing all the properties necessary
+                        // to evaluate the rule in Rendering Host
+                        conditionResult = parser.Parse(rule.Condition);
+                        var dataSourceItem = rendering.Item.Database.GetItem(new ID(action.DataSource));
+                        var variant = new Variant
                         {
-                            var parser = ReflectionUtil.CreateObject(Type.GetType(parserType)) as BaseParser;
-                            conditionResult = parser.Parse(rule.Condition);
-                            var dataSourceItem = rendering.Item.Database.GetItem(new ID(action.DataSource));
-                            var variant = new Variant
-                            {
-                                Name = rule.Name,
-                                VariantId = rule.UniqueId.ToGuid().ToString("B"),
-                                Fields = ProcessItem(dataSourceItem, rendering, renderingConfig),
-                                Condition = conditionResult
-                            };
-                            variants.Add(JObject.Parse(JsonConvert.SerializeObject(variant)));
-                        }
+                            Name = rule.Name,
+                            VariantId = rule.UniqueId.ToGuid().ToString("B"),
+                            Fields = ProcessItem(dataSourceItem, rendering, renderingConfig),
+                            Condition = conditionResult
+                        };
+                        variants.Add(JObject.Parse(JsonConvert.SerializeObject(variant)));
                     }
                 }
             }
@@ -131,6 +131,8 @@ namespace Mvp.Foundation.LayoutServiceExtensions.ContentsResolvers
                 return ResolveSimpleContents(rendering, renderingConfig);
             return variants;
         }
+
+        #region ootb
 
         protected virtual IEnumerable<Item> GetItems(Item contextItem)
         {
@@ -186,5 +188,7 @@ namespace Mvp.Foundation.LayoutServiceExtensions.ContentsResolvers
             using (new SettingsSwitcher("Media.AlwaysIncludeServerUrl", (Switcher<bool, IncludeServerInMediaUrlSwitcher>.CurrentValue || this.IncludeServerUrlInMediaUrls).ToString()))
                 return JObject.Parse(renderingConfig.ItemSerializer.Serialize(item));
         }
+
+        #endregion
     }
 }

@@ -9,6 +9,7 @@ namespace Mvp.Foundation.LayoutServiceExtensions.Parsers
     public class DayOfWeekConditionParser : BaseParser
     {
         private const string _typeId = "DayOfWeek";
+
         public override object Parse(RuleCondition<ConditionalRenderingsRuleContext> condition)
         {
             var specificCondition = condition as DayOfWeekCondition<ConditionalRenderingsRuleContext>;
@@ -18,6 +19,7 @@ namespace Mvp.Foundation.LayoutServiceExtensions.Parsers
                 ["listOfDays"] = (JToken)GetListOfDays(specificCondition.DaysList)
             };
         }
+
         private JArray GetListOfDays(string daysList)
         {
             string[] strArray = daysList.Split(new char[1] { '|' }, StringSplitOptions.RemoveEmptyEntries);

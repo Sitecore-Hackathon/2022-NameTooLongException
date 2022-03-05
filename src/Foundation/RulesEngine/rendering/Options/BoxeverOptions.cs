@@ -1,4 +1,4 @@
-﻿namespace NTLE.Project.DemoSite.Rendering.Configuration
+﻿namespace Mvp.Foundation.RulesEngine.Options
 {
     /// <summary>
     /// Boxever Configuration

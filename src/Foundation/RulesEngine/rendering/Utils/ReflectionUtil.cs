@@ -5,22 +5,15 @@ namespace Mvp.Foundation.RulesEngine.Utils
 {
     public static class ReflectionUtil
     {
-		public static Type GetGenericType<T>(string typeName)
-		{
-			return GetGenericType(typeName, typeof(T));
-		}
-
-		public static Type GetGenericType(string typeName, Type genericArgumentType)
+        //Currently this class only supports creating an object from the Executing Assembly
+		public static Type GetGenericType(string typeName)
         {
             typeName = typeName.Trim();
-            string text = string.Empty;
             int num = typeName.IndexOf(",", StringComparison.InvariantCulture);
             if (num >= 0)
             {
-                text = typeName.Mid(num + 1).Trim();
                 typeName = typeName.Left(num).Trim();
             }
-            //Assembly assembly = LoadAssembly(text);
 			Assembly assembly = Assembly.GetExecutingAssembly();
             if (assembly == null)
             {

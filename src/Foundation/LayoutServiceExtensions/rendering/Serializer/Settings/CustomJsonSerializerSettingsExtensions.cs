@@ -5,6 +5,9 @@ using Sitecore.LayoutService.Client.Newtonsoft.Converters;
 
 namespace Mvp.Foundation.LayoutServiceExtensions.Serializer.Settings
 {
+    /// <summary>
+    /// Need to use custom version of JsonSerializerSettingsExtensions in order to add a different PlaceholderJsonConverter
+    /// </summary>
     public static class CustomJsonSerializerSettingsExtensions
     {
         public static JsonSerializerSettings SetDefaults(this JsonSerializerSettings settings)
@@ -28,7 +31,7 @@ namespace Mvp.Foundation.LayoutServiceExtensions.Serializer.Settings
             settings.Converters.Add(new FieldReaderJsonConverter());
             //settings.Converters.Add(new PlaceholderJsonConverter());
             //Use our customer PlaceholderConverter - which converts Component to PersonalizedComponent
-            settings.Converters.Add(new CustomPlaceHolderJsonConverter());
+            settings.Converters.Add(new CustomPlaceholderJsonConverter());
             settings.Converters.Add(new DeviceJsonConverter());
             return settings;
         }

@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Mvp.Foundation.RulesEngine.Models.Dtos.Request;
 using Mvp.Foundation.RulesEngine.Models.Dtos.Response;
-using NTLE.Project.DemoSite.Rendering.Configuration;
 using System;
 using System.Net.Http;
 using System.Text;
+using Mvp.Foundation.RulesEngine.Options;
 
 namespace Mvp.Foundation.RulesEngine.Rules
 {
     // This code is taken from the video, very crappy code though...
     public class BoxeverRule : Rule
     {
-       private static BoxeverOptions _boxeverOptions { get; set; }
+        private static BoxeverOptions _boxeverOptions { get; set; }
         private string BoxeverTestID { get; set; }
         private string BoxeverID { get; set; }
         public string Value { get; set; }

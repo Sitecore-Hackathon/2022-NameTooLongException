@@ -56,7 +56,7 @@ namespace Mvp.Foundation.LayoutServiceExtensions.Middleware
                 SitecoreLayoutResponse response = await GetSitecoreLayoutResponse(httpContext).ConfigureAwait(continueOnCapturedContext: false);
                 //STEP 2: PROCESS RULES & CONVERT PERSONALIZEDCOMPONENT BACK TO COMPONENT by executing rules
                 ConvertPlaceholders(response.Content.Sitecore.Route.Placeholders);
-                //FINALLY SET RESPONSE in renderingContext
+                //FINALLY SET RESPONSE in renderingContext (continue as it would normally)
                 SitecoreRenderingContext renderingContext = new SitecoreRenderingContext
                 {
                     Response = response,
@@ -110,11 +110,13 @@ namespace Mvp.Foundation.LayoutServiceExtensions.Middleware
                     component.Fields = variant.Fields;
                     return component as Component;
                 }
-                //Get rule using type id , json and additionally httpcontext & configuration
+                //Get rule using type id, json and additionally httpcontext & configuration
                 var rule = _ruleFactory.GetRule(variant.Condition.typeId, variant.Condition.OriginalJson, _httpContext, _configuration);
                 if (rule?.Execute() ?? false)
                 {
+                    //If rule returned true on execution, then we set this variant's Fields to the Component.Fields property
                     component.Fields = variant.Fields;
+                    //Then return the Component to stop the loop
                     return component as Component;
                 }
             }

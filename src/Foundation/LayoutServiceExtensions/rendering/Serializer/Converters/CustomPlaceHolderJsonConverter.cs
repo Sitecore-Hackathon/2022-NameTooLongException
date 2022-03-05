@@ -3,12 +3,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Mvp.Foundation.LayoutServiceExtensions.Internal;
 using Mvp.Foundation.LayoutServiceExtensions.Models;
-using Sitecore.Internal;
 using Sitecore.LayoutService.Client.Response.Model;
 
 namespace Mvp.Foundation.LayoutServiceExtensions.Serializer.Converters
 {
-    public class CustomPlaceHolderJsonConverter : JsonConverter<Placeholder>
+    public class CustomPlaceholderJsonConverter : JsonConverter<Placeholder>
     {
         public override bool CanWrite => false;
 
@@ -28,7 +27,7 @@ namespace Mvp.Foundation.LayoutServiceExtensions.Serializer.Converters
                     }
                     else
                     {
-                        //Serializing to NTLE's custom PersonalizedComponent
+                        //If the item contains a property 'variants' we want to treat it as a PersonalizedComponent
                         if (item["variants"] != null)
                             placeholder.Add(serializer.Deserialize<PersonalizedComponent>(item.CreateReader()));
                         else

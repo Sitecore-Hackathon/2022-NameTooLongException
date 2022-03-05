@@ -8,6 +8,7 @@ namespace Mvp.Foundation.LayoutServiceExtensions.Parsers
     public class MonthOfYearConditionParser : BaseParser
     {
         private const string _typeId = "MonthOfYear";
+
         public override object Parse(RuleCondition<ConditionalRenderingsRuleContext> condition)
         {
             var specificCondition = condition as CurrentMonthCondition<ConditionalRenderingsRuleContext>;
@@ -17,6 +18,7 @@ namespace Mvp.Foundation.LayoutServiceExtensions.Parsers
                 ["Month"] = (JToken)GetMonth(specificCondition.Month)
             };
         }
+
         private string GetMonth(string month)
         {
             var monthItem = Sitecore.Context.Database.GetItem(new Sitecore.Data.ID(month));
