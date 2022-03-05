@@ -12,7 +12,7 @@ namespace Mvp.Foundation.LayoutServiceExtensions.Parsers
 {
     public class SendEmailSubscriptionConditionParser : BaseParser
     {
-        private const string _typeId = "SendTest";
+        private const string _typeId = "SendRule";
 
         public override object Parse(RuleCondition<ConditionalRenderingsRuleContext> condition)
         {

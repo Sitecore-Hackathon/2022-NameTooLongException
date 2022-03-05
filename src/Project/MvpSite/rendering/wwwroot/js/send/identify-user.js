@@ -1,20 +1,16 @@
 ﻿//NAMETOOLONGEXCEPTION--CUSTOM CODE :: Sitecore Send Identfy UserService
-var sendIdentfyUserService = {};
-(function () {
-    $(document).ready(function () {
-        var identifyUserOnFormSubmit = function (e) {
-            const formData = new FormData(e.target);
-            console.log(formData);
-            if (formData["Email"]) {
-                //Identify user in Mootrack
-                mootrack('identify', formData["Email"]);
-                //Identify user in Boxever
-                $.cookie('mootrack_email_id', 1);
-            }
-        }
-        for (var i = 0; i < document.forms.length; i++) {
-            var form = document.forms[i];
-            form.addEventListener("submit", identifyOnFormSubmit, false);
+$(document).ready(function () {
+    $(document).on('click', 'form.moosend-subscription-form', function (e) {
+        // code
+        const data = Object.fromEntries(new FormData(e.currentTarget).entries());
+        if (data["Email"]) {
+            //Identify user in Mootrack
+            mootrack('identify', data["Email"]);
+            //STORING in Cookie just as temp demo purpose
+            // 1. use can be to get identified user from moosend / Boxever or Okta !! 
+            // 2. Based on idendified user, we can if user has submitted Sitecore Send form - using our custom rule !
+            $.cookie('mootrack_email_id', data["Email"]);
         }
     });
-}).apply(sendIdentfyUserService);
+
+});

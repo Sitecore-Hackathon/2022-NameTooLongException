@@ -7,7 +7,7 @@ namespace Mvp.Foundation.LayoutServiceExtensions.Parsers
 {
     public class BoxeverConditionParser : BaseParser
     {
-        private const string _typeId = "BoxeverTest";
+        private const string _typeId = "BoxeverRule";
 
         public override object Parse(RuleCondition<ConditionalRenderingsRuleContext> condition)
         {
