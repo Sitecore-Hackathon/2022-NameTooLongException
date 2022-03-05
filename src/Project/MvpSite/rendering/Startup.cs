@@ -110,6 +110,10 @@ namespace Mvp.Project.MvpSite.Rendering
       //});
 
       services.AddSession();
+
+      //NAMETOOLONGEXCEPTION--CUSTOM CODE
+      services.AddHttpContextAccessor();
+      //NAMETOOLONGEXCEPTION--CUSTOM CODE
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

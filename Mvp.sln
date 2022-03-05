@@ -237,11 +237,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvp.Project.Sugcon.Renderin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LayoutServiceExtensions", "LayoutServiceExtensions", "{3D0698B1-1484-4446-8F15-9AF8A66B83A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvp.Foundation.LayoutServiceExtensions.Platform", "src\Foundation\LayoutServiceExtensions\platform\Mvp.Foundation.LayoutServiceExtensions.Platform.csproj", "{B5A908E2-E524-4E5D-BE20-63504DA11923}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvp.Foundation.LayoutServiceExtensions.Platform", "src\Foundation\LayoutServiceExtensions\platform\Mvp.Foundation.LayoutServiceExtensions.Platform.csproj", "{B5A908E2-E524-4E5D-BE20-63504DA11923}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvp.Foundation.LayoutServiceExtensions.Rendering", "src\Foundation\LayoutServiceExtensions\rendering\Mvp.Foundation.LayoutServiceExtensions.Rendering.csproj", "{164F5E9F-5E91-456B-88B9-9B72A42959F5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RuleEngine", "RuleEngine", "{C1B3E5D7-9DA6-49B8-8ACC-03AC4390DE76}"
+	ProjectSection(SolutionItems) = preProject
+		src\Foundation\RulesEngine\RulesEngine.module.json = src\Foundation\RulesEngine\RulesEngine.module.json
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvp.Foundation.RulesEngine.Rendering", "src\Foundation\RulesEngine\rendering\Mvp.Foundation.RulesEngine.Rendering.csproj", "{89C5B3F2-3D51-4DEC-98B7-85DB688C43E5}"
 EndProject
