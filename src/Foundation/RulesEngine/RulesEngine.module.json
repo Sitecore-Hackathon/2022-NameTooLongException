@@ -1,0 +1,19 @@
+{
+    "namespace": "Foundation.RulesEngine",
+    "items": {
+        "includes": [
+            {
+                "name": "boxever tags",
+                "path": "/sitecore/system/Settings/Rules/Definitions/Tags/Boxever"
+            },
+            {
+                "name": "boxever elements",
+                "path": "/sitecore/system/Settings/Rules/Definitions/Elements/Boxever"
+            },
+            {
+                "name": "conditional renderings",
+                "path": "/sitecore/system/Settings/Rules/Conditional Renderings"
+            }
+        ]
+    }
+}
