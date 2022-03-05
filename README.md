@@ -50,8 +50,9 @@ Please read the *Usage Instructions* section below to find out how to add additi
 
 ## Video link(s)
 
-⟹ [Video](https://youtu.be/MsX_R2JB8L4)
-⟹ [Long Video](https://youtu.be/2DVdjIluBnI)
+⟹ [Short Video](https://youtu.be/MsX_R2JB8L4)
+
+⟹ [Detailed Video](https://youtu.be/2DVdjIluBnI)
 
 
 
