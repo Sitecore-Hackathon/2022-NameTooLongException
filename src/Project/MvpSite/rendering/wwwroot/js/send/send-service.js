@@ -1,8 +1,8 @@
 ﻿//NAMETOOLONGEXCEPTION--CUSTOM CODE :: Sitecore Send
-var boxeverService = {};
+var sendService = {};
 (function () {
     this._config = {
-        "websiteId": "5c3fd852-b4f7-4b09-9103-9ee1cb22377c"
+        "websiteId": "b0eacdea-b833-4edb-af44-4dfb854d8ec7"
     }
 
     ///Initialize Service
@@ -22,4 +22,4 @@ var boxeverService = {};
 
     this.init();
     this.formSubmission();
-}).apply(boxeverService);
+}).apply(sendService);
