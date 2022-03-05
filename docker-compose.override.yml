@@ -1,0 +1,224 @@
+version: "2.4"
+services:
+
+  dotnetsdk:
+    container_name: mvp-dotnetsdk
+    image: ${MVP_DOCKER_REGISTRY}mvp-dotnetsdk:${SITECORE_VERSION}
+    build:
+      context: ./docker/build/dotnetsdk
+      args:
+        BUILD_IMAGE: ${SOLUTION_BUILD_IMAGE}
+        NETCORE_BUILD_IMAGE: ${NETCORE_BUILD_IMAGE}
+    scale: 0
+
+  solutionBuildOutput:
+    container_name: mvp-solution
+    image: ${MVP_DOCKER_REGISTRY}mvp-solution:${SITECORE_VERSION}
+    build:
+      context: ./
+      dockerfile: ./docker/build/solution/Dockerfile
+      args:
+        BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
+        BASE_IMAGE: ${SOLUTION_BASE_IMAGE}
+        BUILD_IMAGE: ${MVP_DOCKER_REGISTRY}mvp-dotnetsdk:${SITECORE_VERSION}
+    depends_on:
+      - dotnetsdk
+    scale: 0
+
+  mvp-rendering:
+    container_name: mvp-rendering
+    image: ${MVP_DOCKER_REGISTRY}mvp-rendering:${SITECORE_VERSION}
+    restart: ${DOCKER_RESTART}
+    build:
+      context: ./docker/build/rendering
+      target: ${BUILD_CONFIGURATION}
+      args:
+        DEBUG_BASE_IMAGE: ${NETCORE_BUILD_IMAGE}
+        RELEASE_BASE_IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
+        SOLUTION_IMAGE: ${MVP_DOCKER_REGISTRY}mvp-solution:${SITECORE_VERSION}
+        ENTRYPOINT_ASSEMBLY: Mvp.Project.MvpSite.dll
+        ARTIFACTS_FOLDER: /artifacts/mvp-rendering
+    volumes:
+      - ${LOCAL_DEPLOY_PATH}\mvp-rendering:C:\deploy
+    environment:
+      ENTRYPOINT_ASSEMBLY: Mvp.Project.MvpSite.dll
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://*:80"
+      Sitecore__InstanceUri: "http://cd"
+      Sitecore__RenderingHostUri: "https://${MVP_RENDERING_HOST}"
+      Sitecore__EnableExperienceEditor: "true"
+      Okta__OktaDomain: ${OKTA_DOMAIN}
+      Okta__ClientId: ${OKTA_CLIENT_ID}
+      Okta__ClientSecret: ${OKTA_CLIENT_SECRET}
+      Okta__AuthorizationServerId: ${OKTA_AUTH_SERVER_ID}
+      PeopleGraphQL__UrlLive: ${PeopleGraphQL_UrlLive}
+      PeopleGraphQL__UrlEdit: ${PeopleGraphQL_UrlEdit}
+      Application_User_Name: ${SITECORE_APPLICATION_USER_NAME}
+      Application_User_Password: ${SITECORE_APPLICATION_USER_PASSWORD}
+      Application_User_Domain: ${SITECORE_APPLICATION_USER_DOMAIIN}
+      Application_CMS_URL: ${SITECORE_Application_CMS_URL}
+    mem_limit: ${MEM_LIMIT_RENDERING:-1GB}           
+    depends_on:
+      - solutionBuildOutput
+      - cm
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mvp-secure.entrypoints=websecure"
+      - "traefik.http.routers.mvp-secure.rule=Host(`${MVP_RENDERING_HOST}`)"
+      - "traefik.http.routers.mvp-secure.tls=true"   
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/healthz"]
+      interval: 60s
+      timeout: 30s
+    scale: 0
+
+  sugcon-rendering:
+    container_name: sugcon-rendering
+    image: ${MVP_DOCKER_REGISTRY}sugcon-rendering:${SITECORE_VERSION} 
+    build:
+      context: ./docker/build/rendering
+      target: ${BUILD_CONFIGURATION}
+      args:
+        DEBUG_BASE_IMAGE: ${NETCORE_BUILD_IMAGE}
+        RELEASE_BASE_IMAGE: mcr.microsoft.com/dotnet/core/aspnet:3.1
+        SOLUTION_IMAGE: ${MVP_DOCKER_REGISTRY}mvp-solution:${SITECORE_VERSION}
+        ENTRYPOINT_ASSEMBLY: Mvp.Project.Sugcon.Rendering.dll
+        ARTIFACTS_FOLDER: /artifacts/sugcon-rendering
+    environment:
+      ENTRYPOINT_ASSEMBLY: Mvp.Project.Sugcon.Rendering.dll
+    volumes:
+      - ${LOCAL_DEPLOY_PATH}\sugcon-rendering:C:\deploy      
+    depends_on:
+      - solutionBuildOutput           
+    scale: 0
+
+  traefik:
+    restart: ${DOCKER_RESTART}
+    volumes:
+      - ./docker/traefik:C:/etc/traefik
+
+  redis:
+    restart: ${DOCKER_RESTART}
+
+  mssql:
+    restart: ${DOCKER_RESTART}
+    volumes:
+      - type: bind
+        source: .\docker\data\sql
+        target: c:\data
+    mem_limit: ${MEM_LIMIT_SQL:-2GB}        
+  
+  mssql-init:
+    isolation: ${ISOLATION}
+    image: ${MVP_DOCKER_REGISTRY}mvp-mssql-init:${SITECORE_VERSION}
+    build:
+      context: ./docker/build/mssql-init
+      args:
+        BASE_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm1-mssql-init:${SITECORE_VERSION}
+        HEADLESS_SERVICES_RESOURCES_IMAGE: ${HEADLESS_SERVICES_RESOURCES_IMAGE}
+        SPE_RESOURCES_IMAGE: ${SPE_RESOURCES_IMAGE}
+
+  solr:
+    restart: ${DOCKER_RESTART}
+    volumes:            
+      - ${LOCAL_DATA_PATH}\solr:c:\data  
+    mem_limit: ${MEM_LIMIT_SOLR:-1GB}  
+
+  solr-init:
+    image: ${MVP_DOCKER_REGISTRY}mvp-solr-init:${SITECORE_VERSION}
+    build:
+      context: ./docker/build/solr-init
+      args:
+        BASE_IMAGE: ${SITECORE_DOCKER_REGISTRY}sitecore-xm1-solr-init:${SITECORE_VERSION}                
+  
+  id:
+    image: ${MVP_DOCKER_REGISTRY}mvp-id6:${SITECORE_VERSION}
+    restart: ${DOCKER_RESTART}
+    build:
+      context: ./docker/build/id
+      args:
+        BASE_IMAGE: ${SITECORE_DOCKER_REGISTRY}${ID_IMAGE}:${SITECORE_VERSION}
+        SOLUTION_IMAGE: ${MVP_DOCKER_REGISTRY}mvp-solution:${SITECORE_VERSION}
+    environment:
+      SITECORE_LICENSE_LOCATION: c:\license\license.xml
+    volumes:
+      - ${HOST_LICENSE_FOLDER}:c:\license
+    depends_on:
+      - solutionBuildOutput
+
+  cd:
+    image: ${MVP_DOCKER_REGISTRY}mvp-cd:${SITECORE_VERSION}
+    restart: ${DOCKER_RESTART}
+    build:
+      context: ./docker/build/cd
+      args:
+        BASE_IMAGE: ${SITECORE_DOCKER_REGISTRY}${CD_IMAGE}:${SITECORE_VERSION}
+        SOLUTION_IMAGE: ${MVP_DOCKER_REGISTRY}mvp-solution:${SITECORE_VERSION}
+        TOOLS_RESOURCES_IMAGE: ${TOOLS_RESOURCES_IMAGE}
+        HEADLESS_SERVICES_RESOURCES_IMAGE: ${HEADLESS_SERVICES_RESOURCES_IMAGE}
+    depends_on:
+      solutionBuildOutput:
+        condition: service_completed_successfully 
+    volumes:
+      - ${LOCAL_DEPLOY_PATH}\platform:C:\deploy
+      - ${LOCAL_DATA_PATH}\cd:C:\inetpub\wwwroot\App_Data\logs
+      - ${HOST_LICENSE_FOLDER}:c:\license
+    environment:
+      SITECORE_LICENSE_LOCATION: c:\license\license.xml
+      SITECORE_DEVELOPMENT_PATCHES: CustomErrorsOff
+      Okta__OktaDomain: ${OKTA_DOMAIN}
+      Okta__ClientId: ${OKTA_CLIENT_ID}
+      Okta__ClientSecret: ${OKTA_CLIENT_SECRET}
+      Okta__AuthorizationServerId: ${OKTA_AUTH_SERVER_ID}
+      Okta__RedirectUri: "https://${CD_HOST}/identity/externallogincallback"
+      Sitecore__ExternalCdUrl: "${CD_HOST}"
+      MVP_RENDERING_HOST_PUBLIC_URI: ${MVP_RENDERING_HOST}      
+    mem_limit: ${MEM_LIMIT_CD:-2GB}      
+    entrypoint: powershell.exe -Command "& C:\tools\entrypoints\iis\Development.ps1"
+    labels:
+      - "traefik.http.middlewares.force-STS-Header.headers.forceSTSHeader=true"
+      - "traefik.http.middlewares.force-STS-Header.headers.stsSeconds=31536000"
+      - "traefik.http.routers.cd-secure.entrypoints=websecure"
+      - "traefik.http.routers.cd-secure.rule=Host(`${CD_HOST}`)"
+      - "traefik.http.routers.cd-secure.tls=true"
+      - "traefik.http.routers.cd-secure.middlewares=force-STS-Header"
+
+  cm:
+    image: ${MVP_DOCKER_REGISTRY}mvp-cm:${SITECORE_VERSION}
+    restart: ${DOCKER_RESTART}
+    build:
+      context: ./docker/build/cm
+      args:
+        BASE_IMAGE: ${SITECORE_DOCKER_REGISTRY}${CM_IMAGE}:${SITECORE_VERSION}
+        SOLUTION_IMAGE: ${MVP_DOCKER_REGISTRY}mvp-solution:${SITECORE_VERSION}
+        TOOLS_RESOURCES_IMAGE: ${TOOLS_RESOURCES_IMAGE}
+        DEVEX_RESOURCES_IMAGE: ${DEVEX_RESOURCES_IMAGE}
+        HEADLESS_SERVICES_RESOURCES_IMAGE: ${HEADLESS_SERVICES_RESOURCES_IMAGE}
+        SPE_RESOURCES_IMAGE: ${SPE_RESOURCES_IMAGE}
+    depends_on:
+      solutionBuildOutput:
+        condition: service_completed_successfully  
+    volumes:
+      - ${LOCAL_DEPLOY_PATH}\platform:C:\deploy
+      - ${LOCAL_DATA_PATH}\cm:C:\inetpub\wwwroot\App_Data\logs
+      - ${HOST_LICENSE_FOLDER}:c:\license
+    environment:
+      SITECORE_LICENSE_LOCATION: c:\license\license.xml
+      SITECORE_DEVELOPMENT_PATCHES: CustomErrorsOff
+      Okta__OktaDomain: ${OKTA_DOMAIN}
+      Okta__ClientId: ${OKTA_CLIENT_ID}
+      Okta__ClientSecret: ${OKTA_CLIENT_SECRET}
+      Okta__AuthorizationServerId: ${OKTA_AUTH_SERVER_ID}
+      Okta__RedirectUri: "https://${CM_HOST}/identity/externallogincallback"
+      Okta__DevelopmentMode: ${OKTA_DevelopmentMode}
+      Sitecore__ExternalCdUrl: "${CD_HOST}"
+      SSC__AllowAnonymousAccess: "${SSC_AllowAnonymousAccess}"
+      SSC__AnonymousUser: "${SSC_AnonymousUser}"
+      MVP_RENDERING_HOST_PUBLIC_URI: https://${MVP_RENDERING_HOST}
+    mem_limit: ${MEM_LIMIT_CD:-4GB}        
+    entrypoint: powershell.exe -Command "& C:\tools\entrypoints\iis\Development.ps1"
+ 
+networks:
+  default:
+    external:
+      name: nat

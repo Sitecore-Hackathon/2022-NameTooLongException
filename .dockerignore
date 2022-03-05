@@ -1,0 +1,21 @@
+# folders
+.git
+.gitignore
+.vs
+.vscode
+build
+docker
+packages
+**/bin/
+**/obj/
+**/out/
+
+# files
+*Dockerfile
+docker-compose*
+**/*.md
+*.ps1
+
+# static asset genetators
+**/package.json
+**/gulpfile.js
