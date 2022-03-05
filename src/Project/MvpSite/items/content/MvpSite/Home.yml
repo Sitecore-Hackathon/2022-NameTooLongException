@@ -45,6 +45,23 @@ SharedFields:
           <rls>
             <ruleset>
               <rule
+                name="Applied for mentor program"
+                uid="{C5B4986C-1DC8-4885-A0BF-09E74D4D759B}">
+                <conditions>
+                  <condition
+                    id="{A3FF67B0-4F52-49FC-A0FF-F7951A065ADD}"
+                    uid="485FCF84140F4ED693BB7A69920C7C6E"
+                    BoxeverTestID="2"
+                    value="1" />
+                </conditions>
+                <actions>
+                  <action
+                    id="{0F3C6BEC-E56B-4875-93D7-2846A75881D2}"
+                    uid="D6BE38D030A046AD86E35A8254259BC0"
+                    DataSource="{BC0B8E49-A7E9-4A7E-87AD-D5AE9910D227}" />
+                </actions>
+              </rule>
+              <rule
                 name="Viewed the Mentor Page"
                 uid="{2DF0F249-1B4B-44C2-89D2-0BF271107B6F}">
                 <conditions>
@@ -158,7 +175,7 @@ Languages:
       Value: 20200513T045800Z
     - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
       Hint: __Revision
-      Value: "562ea474-a68f-48e2-a067-192c957b33d7"
+      Value: "edaf96ff-e8dc-4276-a459-cd15ff68e03e"
     - ID: "b1ece12f-b2c9-44e6-92a3-c5dfd6514b59"
       Hint: Menu Title
       Value: Home
@@ -168,4 +185,4 @@ Languages:
         sitecore\Admin
     - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
       Hint: __Updated
-      Value: 20220305T110022Z
+      Value: 20220305T111422Z
