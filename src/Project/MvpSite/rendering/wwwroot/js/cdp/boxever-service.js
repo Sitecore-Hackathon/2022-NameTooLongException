@@ -5,9 +5,9 @@ var boxeverService = {};
         "channel": "WEB",
         "language": "EN",
         "currency": "EUR",
-        "pos": "Orientation-GvT",
-        "clientKey": "pqshkqqqoklsqwue4gs09b5idg0mv1d0",
-        "domain": "demosite-rh.hackathon.localhost"
+        "pos": "NTLE-MVP-Site",
+        "clientKey": "psfu6uh05hsr9c34rptlr06dn864cqrx",
+        "domain": "mvp.sc-mvp.localhost"
     }
     this._boxeverq = [];
 
